@@ -66,6 +66,54 @@
       "locations": ["Bengaluru"], "lastVerified": "2026-08-09",
       "notes": "Board is EU-hosted (job-boards.eu.greenhouse.io) but the standard boards-api.greenhouse.io endpoint serves it fine — the eu-subdomain API endpoint timed out on probe, don't use it. Recently IPO'd. Glassdoor DevOps avg only ~16L (12.8-23.3L range) — often UNDER 25 LPA at 2-4yr. Poll but weight low."
     },
+    {
+      "name": "BlackRock", "sector": "asset-manager-gcc", "tier": ["A"], "priority": "high",
+      "provider": "workday", "tenant": "blackrock", "wdHost": "wd1", "site": "BlackRock_Professional",
+      "jobViewBase": "https://blackrock.wd1.myworkdayjobs.com/en-US/BlackRock_Professional",
+      "locations": ["Gurugram"], "lastVerified": "2026-08-09",
+      "notes": "Aladdin Engineering GCC. Confirmed live 'Platform Operations/SRE VP', 'Associate DevOps Engineer', 'Data Platform DevOps Engineering VP' reqs. VP-band clears 25+ LPA easily; fresher band (~8.36L) does not — target mid/VP-titled reqs."
+    },
+    {
+      "name": "Invesco", "sector": "asset-manager-gcc", "tier": ["A"], "priority": "medium",
+      "provider": "workday", "tenant": "invesco", "wdHost": "wd1", "site": "IVZ",
+      "jobViewBase": "https://invesco.wd1.myworkdayjobs.com/en-US/IVZ",
+      "locations": ["Hyderabad"], "lastVerified": "2026-08-09",
+      "notes": "Confirmed live infra/stability engineering reqs in Hyderabad. Competitive AMC-GCC comp band."
+    },
+    {
+      "name": "Vanguard", "sector": "asset-manager-gcc", "tier": ["A"], "priority": "high",
+      "provider": "workday", "tenant": "vanguard", "wdHost": "wd5", "site": "Vanguard_External",
+      "jobViewBase": "https://vanguard.wd5.myworkdayjobs.com/en-US/Vanguard_External",
+      "locations": ["Hyderabad"], "lastVerified": "2026-08-09",
+      "notes": "Brand-new GCC (opened 2025), scaling to 2,500 employees by 2029 — ground-floor hiring wave. DevOps/SRE reqs confirmed requiring AWS/CI-CD/distributed systems, matches profile closely."
+    },
+    {
+      "name": "Franklin Templeton", "sector": "asset-manager-gcc", "tier": ["A"], "priority": "medium",
+      "provider": "workday", "tenant": "franklintempleton", "wdHost": "wd5", "site": "Primary-External-1",
+      "jobViewBase": "https://franklintempleton.wd5.myworkdayjobs.com/en-US/Primary-External-1",
+      "locations": ["Hyderabad"], "lastVerified": "2026-08-09",
+      "notes": "Confirmed live 'Lead Software Engineer – Platform/Backend (Cloud & DevOps)' in Hyderabad. Endpoint verified live; volume of exact-title DevOps/SRE reqs varies day to day — search with 'platform'/'infrastructure' too, not just 'devops'."
+    },
+    {
+      "name": "Point72", "sector": "hedge-fund-gcc", "tier": ["A"], "priority": "high",
+      "provider": "greenhouse", "slug": "point72",
+      "locations": ["Bengaluru"], "lastVerified": "2026-08-09",
+      "notes": "Confirmed live 'Site Reliability Engineer' and 'Platform_India_16' reqs in Bengaluru — Technology Infrastructure team, datacenter-to-cloud platforms. Hedge-fund-tier comp, well above 25 LPA."
+    },
+    {
+      "name": "S&P Global", "sector": "rating-agency-data", "tier": ["A"], "priority": "high",
+      "provider": "workday", "tenant": "spgi", "wdHost": "wd5", "site": "SPGI_Careers",
+      "jobViewBase": "https://spgi.wd5.myworkdayjobs.com/en-US/SPGI_Careers",
+      "locations": ["Hyderabad"], "lastVerified": "2026-08-09",
+      "notes": "Confirmed live 'Senior Software Engineer/SRE – Infrastructure' in Hyderabad."
+    },
+    {
+      "name": "LSEG (incl. Refinitiv)", "sector": "market-data-infra", "tier": ["A"], "priority": "high",
+      "provider": "workday", "tenant": "lseg", "wdHost": "wd3", "site": "Careers",
+      "jobViewBase": "https://lseg.wd3.myworkdayjobs.com/en-US/Careers",
+      "locations": ["Bengaluru"], "lastVerified": "2026-08-09",
+      "notes": "~6,000 employees in Bengaluru. Confirmed live 'Senior Site Reliability Engineer – Real Time Engineering'. Explicitly lists DevOps/SRE/Platform/Cloud as core Bengaluru disciplines; stack (Terraform, GitHub Actions, Azure/AWS, Datadog/OpenTelemetry) closely matches profile."
+    },
 
     { "name": "JPMorgan Chase", "sector": "global-bank-gcc", "tier": ["B"], "priority": "high", "locations": ["Bengaluru", "Mumbai", "Hyderabad"], "careersUrl": "https://careers.jpmorgan.com", "notes": "500+ India tech openings. Associate-level median ~25L per Glassdoor; SRE/platform likely 25-45L. Workday tenant resolves, site-path unconfirmed." },
     { "name": "Goldman Sachs", "sector": "global-bank-gcc", "tier": ["B"], "priority": "high", "locations": ["Bengaluru"], "careersUrl": "https://www.goldmansachs.com/careers", "notes": "Bengaluru is a major engineering hub. Workday tenant resolves, site-path unconfirmed." },
@@ -95,6 +143,22 @@
     { "name": "Bajaj Finserv", "sector": "nbfc", "tier": ["B"], "priority": "low", "locations": ["Pune"], "careersUrl": "https://bajajfinserv.jobsoid.com", "notes": "Jobsoid ATS, no clean public JSON. Large scale but traditionally conservative NBFC comp philosophy." },
     { "name": "NPCI", "sector": "payments-infra-psu-adjacent", "tier": ["B"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://careers.npci.org.in/candidateportal", "notes": "Quasi-PSU body, decent but likely 15-25L range at 2-4yr, not reliably 25+." },
 
+    { "name": "Fidelity Investments", "sector": "asset-manager-gcc", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru", "Chennai"], "careersUrl": "https://jobs.fidelity.com", "notes": "Real GCC since 2003. Confirmed 'CI/CD & DevOps' and resilient-platform reqs in tech job category. Custom portal, not a standard-slug Workday tenant." },
+    { "name": "D. E. Shaw India", "sector": "hedge-fund-gcc", "tier": ["B"], "priority": "high", "locations": ["Hyderabad", "Bengaluru", "Gurugram"], "careersUrl": "https://www.deshawindia.com/careers", "notes": "Dedicated SRE team confirmed — live 'Network Engineering (SRE)' and 'Infrastructure Engineer (DevOps/Cloud, 3-7yr)' reqs. Top-tier quant-fund payer, comp not public but expect well above 25 LPA." },
+    { "name": "Millennium Management", "sector": "hedge-fund-gcc", "tier": ["B"], "priority": "high", "locations": ["Bengaluru"], "careersUrl": "https://career.mlp.com", "notes": "New India Tech Centre in Bengaluru. SWE India comp ₹45-84L (Glassdoor/Levels.fyi) — among the highest on this entire list. Infra/SRE-specific reqs not directly isolated yet but org framing implies platform build-out; check often." },
+    { "name": "Citadel Securities", "sector": "hedge-fund-gcc", "tier": ["B"], "priority": "high", "locations": ["Gurugram"], "careersUrl": "https://www.citadelsecurities.com/careers", "notes": "Confirmed live 'Site Reliability Engineer' req in Gurugram. SWE India comp directionally ₹55-160L — exceptional if reachable." },
+    { "name": "T. Rowe Price", "sector": "asset-manager-gcc", "tier": ["B"], "priority": "low", "locations": ["India — city unconfirmed"], "careersUrl": "https://www.troweprice.com/careers", "notes": "Global Technology associate program referenced; DevOps-enablement teams exist but India presence/city not clearly confirmed. Verify before prioritizing." },
+    { "name": "Swiss Re (GBS India)", "sector": "insurance-reinsurance-gcc", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru", "Hyderabad"], "careersUrl": "https://www.swissre.com/careers", "notes": "2,000+ employee GCC since 2001. Confirmed reqs for DevOps, DevSecOps, Kubernetes, CI/CD, Azure, Platform Engineering." },
+    { "name": "MetLife (MGCC)", "sector": "insurance-gcc", "tier": ["B"], "priority": "medium", "locations": ["Noida", "Jaipur", "Hyderabad", "Pune"], "careersUrl": "https://metlifecareers.com", "notes": "6,500+ employee GCC. Confirmed live SRE reqs emphasizing Azure/AKS/CI-CD for 'mission-critical systems'." },
+    { "name": "Prudential plc", "sector": "insurance-gcc", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru", "Gurugram (opening)"], "careersUrl": "https://www.prudentialplc.com/careers", "notes": "Confirmed live 'Cloud Engineering & SRE Lead' req, APAC-wide and India-eligible." },
+    { "name": "Marsh McLennan Global Services (incl. Mercer)", "sector": "insurance-broking-gcc", "tier": ["B"], "priority": "medium", "locations": ["Mumbai", "Pune", "Gurugram", "Bengaluru", "Chennai"], "careersUrl": "https://careers.marshmclennan.com", "notes": "Confirmed live Mercer DevOps Engineer req (AWS, Terraform, Ansible, Jenkins, 2-4yr) in Gurugram — direct experience-band match." },
+    { "name": "Allianz Technology", "sector": "insurance-gcc", "tier": ["B"], "priority": "medium", "locations": ["Pune", "Trivandrum"], "careersUrl": "https://careers.allianz.com", "notes": "Confirmed 'Infrastructure DevOps Engineer' for Global Data Platform, plus other cloud-infra roles." },
+    { "name": "Moody's / Moody's Analytics", "sector": "rating-agency-data", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru"], "careersUrl": "https://careers.moodys.com", "notes": "Confirmed live 'Team Lead, MLOps/AI DevOps (AWS)' role." },
+    { "name": "CRISIL (S&P Global majority-owned)", "sector": "rating-agency-data", "tier": ["B"], "priority": "medium", "locations": ["Mumbai", "Pune"], "careersUrl": "https://career.crisil.com", "notes": "Confirmed 'Cloud-DevOps Engineer' reqs — Terraform, Ansible, Docker, Kubernetes, AWS, Azure DevOps Pipelines." },
+    { "name": "Fiserv", "sector": "payments-infra-vendor", "tier": ["B"], "priority": "medium", "locations": ["Pune", "Chennai"], "careersUrl": "https://careers.fiserv.com", "notes": "Multiple confirmed live reqs: 'Advisor, Systems Engineering (DevOps Engineer)' Pune, 'DevOps Engineer Sr' Chennai, 'Cloud SRE L2', 'Senior DevOps/Observability Engineer'." },
+    { "name": "ACI Worldwide", "sector": "payments-infra-vendor", "tier": ["B"], "priority": "medium", "locations": ["Pune"], "careersUrl": "https://www.aciworldwide.com/about-aci/careers", "notes": "Confirmed dedicated DevOps team plus SRE roles embedded with product teams in Pune." },
+    { "name": "Euronet Worldwide", "sector": "payments-infra-vendor", "tier": ["B"], "priority": "low", "locations": ["Pune"], "careersUrl": "https://euronet.hire.trakstar.com", "notes": "Senior DevOps hiring referenced. ATS is Trakstar — real platform, not GH/Lever/Workday, needs its own adapter if promoted to Tier A." },
+
     { "name": "Razorpay", "sector": "fintech-payments", "tier": ["C"], "priority": "high", "locations": ["Bengaluru"], "careersUrl": "https://razorpay.com/jobs", "notes": "No exposed ATS API. Senior DevOps avg ~33L, DevOps range up to 6.67M per Levels.fyi — strong bet despite needing manual/LinkedIn search." },
     { "name": "PayU", "sector": "fintech-payments", "tier": ["C"], "priority": "medium", "locations": ["Bengaluru", "Gurugram"], "careersUrl": "https://corporate.payu.com/careers", "notes": "Estimated ~26-29L avg company-wide (small sample) — decent signal." },
     { "name": "PolicyBazaar (PB Fintech)", "sector": "insurtech", "tier": ["C"], "priority": "medium", "locations": ["Gurugram"], "careersUrl": "https://www.policybazaar.com/careers", "notes": "Listed, stable. Estimated moderate comp." },
@@ -115,6 +179,23 @@
     { "name": "ICICI Lombard", "sector": "insurance-general", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.icicilombard.com/careers", "notes": "Glassdoor SWE total pay only ~8-13.5L. DevOps at 2-4yr very unlikely to hit 25 LPA." },
     { "name": "Aditya Birla Capital", "sector": "nbfc", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://careers.adityabirlacapital.com", "notes": "Traditional conglomerate comp structure — estimated below/borderline." },
     { "name": "L&T Finance", "sector": "nbfc", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.ltfs.com/careers", "notes": "Estimated below bar — traditional NBFC comp." },
+
+    { "name": "NSE (National Stock Exchange)", "sector": "market-infra", "tier": ["C"], "priority": "high", "locations": ["Mumbai"], "careersUrl": "https://www.nseindia.com/static/careers-at-nse/jobs", "notes": "Confirmed real tech hiring: low-latency trading systems, matching-engine dev, SRE, cloud, network/FIX connectivity engineering. Prestigious, well-paying, but static portal, no API." },
+    { "name": "BSE (Bombay Stock Exchange)", "sector": "market-infra", "tier": ["C"], "priority": "medium", "locations": ["Mumbai"], "careersUrl": "https://www.bseindia.com/static/about/careers.aspx", "notes": "General presence confirmed via aggregators; no dedicated DevOps/SRE listing directly surfaced, but exchange-tier infra roles are known to exist." },
+    { "name": "CDSL (Central Depository Services)", "sector": "market-infra", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.cdslindia.com/Main/careers.html", "notes": "No API, thin public signal on DevOps/SRE specifically." },
+    { "name": "CCIL (Clearing Corporation of India)", "sector": "market-infra", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "mailto:careers@ccilindia.co.in", "notes": "Application via email only, no modern ATS." },
+    { "name": "Bloomberg (India)", "sector": "market-data-infra", "tier": ["C"], "priority": "medium", "locations": ["Mumbai", "Pune"], "careersUrl": "https://careers.bloomberg.com", "notes": "Real engineering presence; Pune SWE comp ₹4.2M-7.75M (Levels.fyi). DevOps/cloud roles found via aggregators but Bloomberg's own ATS is closed/custom, no public API." },
+    { "name": "Zeta (Zeta Suite)", "sector": "fintech-infra", "tier": ["C"], "priority": "low", "locations": ["Hyderabad", "Bengaluru"], "careersUrl": "https://zeta.tech/in/careers", "notes": "Confirmed DevOps reqs at both junior (1-5yr) and senior (5-7yr) bands. Glassdoor DevOps avg only ~18-20L — below target at mid-level; target the senior/lead band specifically." },
+    { "name": "Yubi (CredAvenue)", "sector": "fintech-infra", "tier": ["C"], "priority": "medium", "locations": ["Chennai", "Bengaluru"], "careersUrl": "https://go-yubi.zohorecruit.in/jobs/careers", "notes": "Debt-markets infra at real scale. SWE India median ~₹25.5L (Levels.fyi) — right at target threshold." },
+    { "name": "Jupiter Money", "sector": "fintech-infra", "tier": ["C"], "priority": "medium", "locations": ["Bengaluru"], "careersUrl": "https://jupiter.keka.com/careers", "notes": "Confirmed DevOps Engineer (4-8yr, K8s/AWS/Python/Docker) req. SDE-2 median ₹31L (Glassdoor) — clears target." },
+    { "name": "M2P Fintech", "sector": "fintech-infra", "tier": ["C"], "priority": "low", "locations": ["Chennai"], "careersUrl": "https://careers.m2pfintech.com", "notes": "API infra for banks/NBFCs. General hiring confirmed, no isolated DevOps req found this pass — recheck periodically." },
+    { "name": "Perfios", "sector": "fintech-infra", "tier": ["C"], "priority": "low", "locations": ["Bengaluru"], "careersUrl": "https://perfios.com/careers", "notes": "Confirmed 'Lead Software Engineer, DevOps' (build/release/monitoring infra) req. No modern ATS confirmed." },
+    { "name": "KreditBee", "sector": "fintech-nbfc", "tier": ["C"], "priority": "low", "locations": ["Bengaluru"], "careersUrl": "https://krazybee.freshteam.com/jobs", "notes": "Confirmed Junior DevOps Engineer (2-5yr, Docker/K8s/Terraform/AWS/CI-CD) req — likely below 25L at this band; check senior openings instead." },
+    { "name": "Setu (Pine Labs subsidiary)", "sector": "fintech-infra", "tier": ["C"], "priority": "low", "locations": ["Bengaluru"], "careersUrl": "https://setu.co/careers", "notes": "Payments/identity/data infra. Careers page confirmed, no isolated DevOps req surfaced this pass." },
+    { "name": "Worldline", "sector": "payments-infra-vendor", "tier": ["C"], "priority": "low", "locations": ["Pune"], "careersUrl": "https://worldline.com/en/home/careers.html", "notes": "'Cloud DevOps' (5-12yr, Jenkins/Docker/Azure/K8s/Azure DevOps) req confirmed via aggregators; no direct portal/API confirmation." },
+    { "name": "Oracle Financial Services Software (Flexcube)", "sector": "core-banking-vendor", "tier": ["C"], "priority": "medium", "locations": ["Mumbai", "Bengaluru", "Pune", "Chennai"], "careersUrl": "https://oracle.com/in/careers", "notes": "Now flows through Oracle's own careers site. Flexcube-specific plus general OCI-India hiring confirmed." },
+    { "name": "Nucleus Software", "sector": "core-banking-vendor", "tier": ["C"], "priority": "low", "locations": ["Noida", "Greater Noida"], "careersUrl": "https://nucleussoftware.zohorecruit.in/jobs/Careers", "notes": "Confirmed 'DevOps Architect' role." },
+    { "name": "Newgen Software", "sector": "core-banking-vendor", "tier": ["C"], "priority": "low", "locations": ["Noida", "Mumbai", "Hyderabad", "Chennai"], "careersUrl": "https://omnirecruit.newgen.co.in", "notes": "Self-describes as 'DevOps-driven'; no specific DevOps req isolated this pass — recheck periodically." },
 
     { "name": "State Bank of India (SBI) and other PSU banks", "sector": "psu-bank", "tier": ["C"], "priority": "low", "locations": ["Various"], "careersUrl": "https://sbi.co.in/careers", "notes": "PSU banks hire tech staff via IBPS-style IT-officer specialist-cadre recruitment at pay scales far below market-rate DevOps/SRE comp (typically well under 15 LPA even at 2-4yr). Lateral market-rate tech hiring essentially absent. Do not prioritize unless Kelvi explicitly reopens this tradeoff." }
   ]
