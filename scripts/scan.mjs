@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // Scans every tier-A (verified public ATS) company in data/companies.json for
 // DevOps/SRE/Platform/Cloud roles matching profile.json, and writes
-// data/jobs.raw.json for the daily routine to read.
+// data/jobs.raw.json for the routine to read.
 //
-//   node scripts/scan.mjs              # all verified tier-A boards
-//   node scripts/scan.mjs --fresh48    # only postings <= 48h old
-//   node scripts/scan.mjs --loc pune   # location substring filter
+//   node scripts/scan.mjs                    # all verified tier-A boards
+//   node scripts/scan.mjs --maxAgeHours 24   # only postings <= N hours old
+//   node scripts/scan.mjs --loc pune         # location substring filter
 //
 // Deliberately dumb: no model calls. Fetch, normalize, filter, emit. The
 // routine's agent reasons over the output — that's what keeps this stage
@@ -116,7 +116,7 @@ async function fetchBoard (company) {
 }
 
 const args = process.argv.slice(2)
-const fresh48Only = args.includes('--fresh48')
+const maxAgeHours = args.includes('--maxAgeHours') ? Number(args[args.indexOf('--maxAgeHours') + 1]) : null
 const locFilter = args.includes('--loc') ? args[args.indexOf('--loc') + 1]?.toLowerCase() : null
 
 const registry = JSON.parse(await readFile(join(ROOT, 'data/companies.json'), 'utf8'))
@@ -142,7 +142,7 @@ for (const { company, jobs, error } of results) {
     if (locFilter && !where.toLowerCase().includes(locFilter)) continue
 
     const ageHours = job.posted ? (now - new Date(job.posted).getTime()) / HOUR : null
-    if (fresh48Only && (ageHours === null || ageHours > 48)) continue
+    if (maxAgeHours !== null && (ageHours === null || ageHours > maxAgeHours)) continue
 
     matches.push({
       company: company.name,

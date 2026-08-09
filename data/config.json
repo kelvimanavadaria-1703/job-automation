@@ -7,13 +7,15 @@
     "headerRow": ["Date Found", "Company", "Role Title", "Location", "Posted", "Source Tier", "JD Link", "Est. Salary Band", "Match Notes", "Tailored Resume (LaTeX)"]
   },
   "schedule": {
-    "cronUTC": "30 2 * * *",
-    "localTime": "8:00 AM IST",
-    "heartbeatOnZeroMatches": true
+    "cronUTC": "30 2,7,12,16 * * *",
+    "localTimes": ["8:00 AM IST", "1:00 PM IST", "6:00 PM IST", "10:00 PM IST"],
+    "runsPerDay": 4,
+    "heartbeatOnZeroMatches": false,
+    "emailPolicy": "Send only when a run finds >=1 new match. No heartbeat email on zero-match runs — at 4 runs/day a per-run heartbeat would mean up to 4 emails/day of noise."
   },
   "runtime": {
     "maxNewRowsPerRun": 10,
     "tierBcRotationSize": 12,
-    "freshnessWindowHours": 48
+    "freshnessWindowHours": 24
   }
 }
