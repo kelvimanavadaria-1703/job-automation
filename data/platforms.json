@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "generated": "2026-08-09",
+  "_purpose": "Job portals/boards to search directly for DevOps/SRE/Platform/Cloud roles, on top of the direct-ATS companies.json path. Used for Tier-B/C companies (no public ATS) and for catching postings from companies not yet in the registry at all.",
+
+  "tier1_bfsi_specialist": {
+    "_why": "Purpose-built for banking/financial-services roles — the highest signal-to-noise for this specific search, unlike generic tech boards.",
+    "platforms": [
+      { "name": "eFinancialCareers", "url": "https://www.efinancialcareers.com", "access": "HTML, has India-specific listings and search filters", "why": "THE specialist board for BFSI jobs globally including tech/infra roles at banks, hedge funds, asset managers, insurers. Search 'DevOps', 'SRE', 'Site Reliability', 'Platform Engineer' + India location filter." },
+      { "name": "iimjobs", "url": "https://www.iimjobs.com", "access": "HTML", "why": "India-specific, skews BFSI/consulting/senior-IC and management roles. Good for AVP/VP-titled tech roles at banks (remember: BFSI 'VP' often = mid-level IC, not literal seniority)." }
+    ]
+  },
+
+  "tier2_high_signal_tech": {
+    "_why": "General tech boards with explicit experience/location filters — directly serve the <=5yr + India constraint without excess noise.",
+    "platforms": [
+      { "name": "Instahyre", "url": "https://www.instahyre.com", "access": "HTML (login-gated for some detail)", "why": "India-only, curated, product-company skewed. Explicit YoE filters." },
+      { "name": "Hirist", "url": "https://www.hirist.tech", "access": "HTML", "why": "India tech-only, better DevOps/SRE/Cloud signal than Naukri, less noise." },
+      { "name": "Cutshort", "url": "https://cutshort.io", "access": "HTML / API-ish", "why": "India startup + mid-size hiring, has DevOps/SRE/Cloud category filters." }
+    ]
+  },
+
+  "tier3_volume_generalist": {
+    "_why": "Highest raw volume, highest noise. Mandatory for reaching companies with no public ATS (most Tier-C in companies.json) but every result needs verification against the actual employer.",
+    "platforms": [
+      { "name": "Naukri", "url": "https://www.naukri.com", "access": "HTML / Apify actor recommended for scale", "why": "Largest India job-board inventory. Essential for Tier-B/C BFSI companies with no ATS API (Kotak, IDFC First, Razorpay career-page-only listings, etc.)." },
+      { "name": "LinkedIn Jobs", "url": "https://www.linkedin.com/jobs", "access": "Apify actor — scraping directly is ToS-restricted and IP-blocked", "why": "Broadest coverage, best location + experience + 'posted in last 24h' filters of any board. Reposts/expired listings common — verify against the employer before tailoring a resume." },
+      { "name": "Indeed India", "url": "https://in.indeed.com", "access": "Apify actor", "why": "Good secondary coverage where Naukri is thin, decent freshness filters." },
+      { "name": "Foundit (formerly Monster India)", "url": "https://www.foundit.in", "access": "HTML", "why": "Large India volume, decent BFSI presence, weaker filtering than Naukri." },
+      { "name": "Shine", "url": "https://www.shine.com", "access": "HTML", "why": "Secondary India volume board, occasional BFSI-specific listings." }
+    ]
+  },
+
+  "tier4_remote_and_gcc_specialist": {
+    "_why": "For India-remote-eligible roles at foreign BFSI firms and GCC-specific hiring pages, where the parent boards above under-index.",
+    "platforms": [
+      { "name": "Remote Rocketship", "url": "https://www.remoterocketship.com/country/india/jobs/devops-engineer/", "why": "Filters remote roles BY country eligibility — avoids the 'remote but US-only' trap. Has India-specific pages for devops-engineer, site-reliability-engineer, cloud-engineer." },
+      { "name": "Wellfound (AngelList Talent)", "url": "https://wellfound.com/role/l/devops-engineer/india", "why": "Startup-skewed but has India + remote filters; useful for fintech scaleups not in companies.json yet." }
+    ]
+  },
+
+  "tier5_salary_verification": {
+    "_why": "Not job boards — used to sanity-check the 'Est. Salary Band (estimated)' column before it goes in the Sheet. All have thin samples for DevOps/SRE specifically; treat as directional, not authoritative.",
+    "platforms": [
+      { "name": "Glassdoor India", "url": "https://www.glassdoor.co.in", "why": "Company + role salary reports, includes reviews (useful reputation signal too)." },
+      { "name": "AmbitionBox", "url": "https://www.ambitionbox.com", "why": "India-specific, often has more India-BFSI samples than Glassdoor for mid-size employers." },
+      { "name": "Levels.fyi", "url": "https://www.levels.fyi", "why": "Best for large tech-adjacent employers (Visa, Mastercard, Amex) and global banks' India GCCs; thin for smaller NBFCs/insurers." },
+      { "name": "6figr", "url": "https://6figr.com", "why": "India-specific comp data, decent BFSI GCC coverage." }
+    ]
+  },
+
+  "apify_actors": {
+    "_note": "Only worth the spend for Tier-B/C companies where the direct-ATS path (companies.json Tier A) and free HTML search both come up empty. Scope every run tightly — Apify bills per result.",
+    "recommended": [
+      { "target": "LinkedIn Jobs", "query": "DevOps Engineer OR Site Reliability Engineer OR Platform Engineer OR Cloud Engineer", "locations": ["India", "Bengaluru", "Pune", "Gurugram", "Mumbai", "Hyderabad", "Chennai"], "datePosted": "past 24 hours", "experienceLevel": ["associate", "mid-senior level"] },
+      { "target": "Naukri", "query": "DevOps OR SRE OR site reliability OR platform engineer OR cloud engineer", "locations": ["Bengaluru", "Pune", "Mumbai", "Gurugram", "Hyderabad", "Chennai"], "experience": "1-5" },
+      { "target": "Indeed India", "query": "DevOps engineer OR site reliability engineer", "locations": ["Bengaluru", "Pune", "Mumbai"] }
+    ],
+    "cadence": "weekly at most — daily broad queries re-pay for the same postings"
+  }
+}
