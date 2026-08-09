@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "notifyEmail": "kelvimanavadaria@gmail.com",
+  "googleSheet": {
+    "url": "PENDING — Kelvi to create a Google Sheet with the header row specified in ROUTINE.md and paste its URL/ID here",
+    "id": null,
+    "headerRow": ["Date Found", "Company", "Role Title", "Location", "Posted", "Source Tier", "JD Link", "Est. Salary Band", "Match Notes", "Tailored Resume (LaTeX)"]
+  },
+  "schedule": {
+    "cronUTC": "30 2 * * *",
+    "localTime": "8:00 AM IST",
+    "heartbeatOnZeroMatches": true
+  },
+  "runtime": {
+    "maxNewRowsPerRun": 10,
+    "tierBcRotationSize": 12,
+    "freshnessWindowHours": 48
+  }
+}

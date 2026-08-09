@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "generated": "2026-08-09",
+  "candidate": {
+    "name": "Kelvi Manavadaria",
+    "email": "kelvimanavadaria@gmail.com",
+    "currentRole": "DevOps Engineer (outsourced as Platform Engineer at Thomson Reuters, via Intuitive.Cloud)",
+    "experienceYears": 2.5,
+    "experienceNote": "Full-time DevOps/SRE since Dec 2023, plus two prior cloud/DevOps internships (Motorola Solutions, Mactores Innovation) back to May 2022."
+  },
+  "target": {
+    "roles": ["DevOps Engineer", "Site Reliability Engineer", "SRE", "Platform Engineer", "Cloud Engineer", "Infrastructure Engineer", "Cloud Infrastructure Engineer", "Systems Reliability Engineer"],
+    "excludeRoles": ["Software Engineer (generic, no infra/platform scope)", "Data Engineer", "QA/Test Engineer", "Security Engineer (unless explicitly DevSecOps/platform-security hybrid)"],
+    "acceptableYearsRange": [1, 5],
+    "seniorityNote": "BFSI titles like AVP/VP/Assistant Vice President often map to mid-level IC roles, not literal seniority as in tech companies. Judge fit by the JD's actual years-of-experience ask, not the title. Only reject on title if it is explicitly a people-management/Director+/Head-of role.",
+    "sector": "BFSI (banking, NBFC, insurance, fintech, payments, core-banking vendors)",
+    "locationPreference": ["Bengaluru", "Pune", "Gurugram", "Mumbai", "Hyderabad", "Chennai", "Remote-India", "Remote-Worldwide"],
+    "targetSalaryLPA": 25,
+    "salaryNote": "BFSI JDs almost never publish pay. Estimate a band from company/tier reputation context in companies.json notes and always label it '(estimated)'. Never treat an estimate as a hard filter that rejects a promising posting outright."
+  },
+  "skills": {
+    "cloud": ["AWS", "Azure"],
+    "cicd": ["Jenkins", "ArgoCD", "GitHub Actions", "AWS CodePipeline", "AWS CodeBuild"],
+    "containers": ["Kubernetes", "Docker", "Helm"],
+    "iac": ["Terraform", "Ansible"],
+    "observability": ["Prometheus", "Grafana", "New Relic", "CloudWatch", "Elasticsearch/ELK Stack", "EventBridge", "CloudTrail"],
+    "systems": ["Linux", "Networking", "Distributed Systems", "Microservices", "High Availability", "Fault Tolerance", "Disaster Recovery"],
+    "languages": ["Python", "Java", "Bash"],
+    "sreePractices": ["24x7 on-call", "Incident management", "Root cause analysis (RCA)", "SLA/SLO/SLI", "Error budgets", "MTTR reduction"]
+  },
+  "certifications": [
+    { "name": "Certified Kubernetes Administrator (CKA)", "validity": "Nov 2024 - Nov 2026" },
+    { "name": "AWS Solutions Architect Associate", "validity": "Jun 2023 - Jun 2026" }
+  ],
+  "resumeTailoringRules": [
+    "Never invent employers, dates, metrics, or technologies not already present in resume/master-resume.tex.",
+    "Tailoring means: reordering the Skills list so JD-relevant items lead, reweighting which bullets appear first/are elaborated, and adjusting the Summary's wording to mirror the JD's language.",
+    "Keep every factual claim (dates, employers, quantified metrics like '10+ TB/day', '30+ accounts', '99.95% uptime') exactly as in the base resume.",
+    "Output must be a complete, valid, compilable standalone .tex document using the same preamble/environments as the base resume."
+  ]
+}

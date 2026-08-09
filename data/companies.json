@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "generated": "2026-08-09",
+  "_tierLegend": {
+    "A": "Public ATS API confirmed reachable (Greenhouse/Lever/Workday CXS) — scripts/scan.mjs hits these directly, zero WebSearch cost.",
+    "B": "Known BFSI employer with real India tech footprint, ATS not confirmed as public JSON — reach via WebFetch on careers page or WebSearch.",
+    "C": "No usable ATS at all — LinkedIn/Naukri/WebSearch only.",
+    "priorityNote": "priority: 'low' means comp data or reputation signal suggests this employer is unlikely to clear 25 LPA at 2-4yr, or headcount is too thin to justify daily polling. Kept in the registry (don't delete) in case a specific req proves the estimate wrong — just poll less often / weight lower."
+  },
+  "_atsAdapters": {
+    "greenhouse": "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true",
+    "greenhouse_eu": "https://boards-api.eu.greenhouse.io/v1/boards/{slug}/jobs?content=true",
+    "lever": "https://api.lever.co/v0/postings/{slug}?mode=json",
+    "workday": "POST https://{tenant}.{wdHost}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs  body: {\"appliedFacets\":{},\"limit\":50,\"offset\":0,\"searchText\":\"<keyword>\"} — verified live 2026-08-09 for visa, mastercard, db"
+  },
+
+  "companies": [
+    {
+      "name": "Visa", "sector": "payments-network", "tier": ["A"], "priority": "high",
+      "provider": "workday", "tenant": "visa", "wdHost": "wd5", "site": "Visa",
+      "jobViewBase": "https://visa.wd5.myworkdayjobs.com/en-US/Visa",
+      "locations": ["Bengaluru", "Pune"], "lastVerified": "2026-08-09",
+      "notes": "Confirmed live SRE reqs matching Kelvi's stack (K8s, observability, multi-cloud). Strong 25+ LPA odds."
+    },
+    {
+      "name": "Mastercard", "sector": "payments-network", "tier": ["A"], "priority": "high",
+      "provider": "workday", "tenant": "mastercard", "wdHost": "wd1", "site": "corporatecareers",
+      "jobViewBase": "https://mastercard.wd1.myworkdayjobs.com/en-US/corporatecareers",
+      "locations": ["Pune", "Gurugram"], "lastVerified": "2026-08-09",
+      "notes": "Confirmed live 'Lead Site Reliability Engineer' and 'Manager, SRE' reqs in Pune. Strong bet."
+    },
+    {
+      "name": "Deutsche Bank", "sector": "global-bank-gcc", "tier": ["A"], "priority": "high",
+      "provider": "workday", "tenant": "db", "wdHost": "wd3", "site": "DBWebsite",
+      "jobViewBase": "https://db.wd3.myworkdayjobs.com/en-US/DBWebsite",
+      "locations": ["Bengaluru", "Pune", "Mumbai"], "lastVerified": "2026-08-09",
+      "notes": "Confirmed live SRE reqs, India in facet list. Large GCC, GCC comp premium 30-60% over IT-services norms."
+    },
+    {
+      "name": "PhonePe", "sector": "fintech-payments", "tier": ["A"], "priority": "high",
+      "provider": "greenhouse", "slug": "phonepe",
+      "locations": ["Bengaluru", "Pune"], "lastVerified": "2026-08-09",
+      "notes": "Walmart-backed, huge ML/infra surface. General comp very high; SRE-specific public samples thin but likely understated."
+    },
+    {
+      "name": "slice", "sector": "fintech-nbfc-now-bank", "tier": ["A"], "priority": "medium",
+      "provider": "greenhouse", "slug": "slice",
+      "locations": ["Bengaluru"], "lastVerified": "2026-08-09",
+      "notes": "Merged into North East Small Finance Bank — now a licensed bank, strengthens BFSI fit. Fast-growing."
+    },
+    {
+      "name": "CRED", "sector": "fintech-consumer", "tier": ["A"], "priority": "high",
+      "provider": "lever", "slug": "cred",
+      "locations": ["Bengaluru"], "lastVerified": "2026-08-09",
+      "notes": "Among highest comp in Indian fintech. SRE/DevOps 75th %ile ~24L+ per public samples — 25+ LPA realistic."
+    },
+    {
+      "name": "Paytm", "sector": "fintech-payments", "tier": ["A"], "priority": "medium",
+      "provider": "lever", "slug": "paytm",
+      "locations": ["Noida", "Bengaluru"], "lastVerified": "2026-08-09",
+      "notes": "Reputation caution: RBI shut Paytm Payments Bank in 2024, though listed parent (One97) still large. Filter carefully — many Lever postings are non-India."
+    },
+    {
+      "name": "Groww", "sector": "fintech-broking", "tier": ["A"], "priority": "low",
+      "provider": "greenhouse", "slug": "groww",
+      "locations": ["Bengaluru"], "lastVerified": "2026-08-09",
+      "notes": "Board is EU-hosted (job-boards.eu.greenhouse.io) but the standard boards-api.greenhouse.io endpoint serves it fine — the eu-subdomain API endpoint timed out on probe, don't use it. Recently IPO'd. Glassdoor DevOps avg only ~16L (12.8-23.3L range) — often UNDER 25 LPA at 2-4yr. Poll but weight low."
+    },
+
+    { "name": "JPMorgan Chase", "sector": "global-bank-gcc", "tier": ["B"], "priority": "high", "locations": ["Bengaluru", "Mumbai", "Hyderabad"], "careersUrl": "https://careers.jpmorgan.com", "notes": "500+ India tech openings. Associate-level median ~25L per Glassdoor; SRE/platform likely 25-45L. Workday tenant resolves, site-path unconfirmed." },
+    { "name": "Goldman Sachs", "sector": "global-bank-gcc", "tier": ["B"], "priority": "high", "locations": ["Bengaluru"], "careersUrl": "https://www.goldmansachs.com/careers", "notes": "Bengaluru is a major engineering hub. Workday tenant resolves, site-path unconfirmed." },
+    { "name": "Morgan Stanley", "sector": "global-bank-gcc", "tier": ["B"], "priority": "high", "locations": ["Bengaluru", "Mumbai"], "careersUrl": "https://www.morganstanley.com/people-opportunities", "notes": "Large Bangalore/Mumbai tech center. Workday tenant resolves, site-path unconfirmed." },
+    { "name": "Barclays", "sector": "global-bank-gsc", "tier": ["B"], "priority": "high", "locations": ["Pune"], "careersUrl": "https://search.jobs.barclays", "notes": "Glassdoor AVP-level ~27L, tech roles trend higher. Workday tenant resolves (wd1/wd5), site-path unconfirmed." },
+    { "name": "Citi", "sector": "global-bank-gcc", "tier": ["B"], "priority": "high", "locations": ["Pune"], "careersUrl": "https://jobs.citi.com/pune", "notes": "Company avg ~25.6L across all roles; AVP tech ~30L cited. Solid bet, active Pune tech hiring." },
+    { "name": "Wells Fargo", "sector": "global-bank-gcc", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru", "Hyderabad"], "careersUrl": "https://www.wellsfargojobs.com", "notes": "Large India GCC, tech-heavy. Workday tenant resolves, site-path unconfirmed." },
+    { "name": "HSBC", "sector": "global-bank-gsc", "tier": ["B"], "priority": "medium", "locations": ["Pune", "Bengaluru", "Hyderabad"], "careersUrl": "https://www.hsbc.com/careers", "notes": "Company-wide avg only ~14.3L (skewed by ops roles) — tech-specific likely higher, estimate 20-30L, verify per-req." },
+    { "name": "Standard Chartered (GBS)", "sector": "global-bank-gbs", "tier": ["B"], "priority": "high", "locations": ["Chennai", "Bengaluru"], "careersUrl": "https://www.sc.com/en/global-careers", "notes": "27,000+ employee GBS, dedicated technology-careers-India track." },
+    { "name": "UBS", "sector": "global-bank-gcc", "tier": ["B"], "priority": "high", "locations": ["Pune", "Hyderabad"], "careersUrl": "https://www.ubs.com/global/en/careers.html", "notes": "India avg ~37.9L (senior-skewed); estimate 25-35L for solid 2-4yr SRE." },
+    { "name": "BNY Mellon", "sector": "global-bank-gcc", "tier": ["B"], "priority": "medium", "locations": ["Pune", "Chennai"], "careersUrl": "https://www.bny.com/careers", "notes": "Large Pune/Chennai presence, estimated good comp." },
+    { "name": "Northern Trust", "sector": "global-bank-gcc", "tier": ["B"], "priority": "high", "locations": ["Pune"], "careersUrl": "https://careers.northerntrust.com", "notes": "Confirmed actively hiring SRE Practice + Azure DevOps Platform Engineering roles in Pune (3,000+ employee site)." },
+    { "name": "Synchrony", "sector": "fintech-consumer-finance-gcc", "tier": ["B"], "priority": "high", "locations": ["Hyderabad", "Pune"], "careersUrl": "https://www.synchronycareers.com", "notes": "India avg confirmed ~24L — right at target band." },
+    { "name": "American Express", "sector": "payments-card-network-gcc", "tier": ["B"], "priority": "high", "locations": ["Gurugram"], "careersUrl": "https://careers.americanexpress.com", "notes": "Gurgaon is a flagship engineering site, SRE a named career track. Oracle Recruiting Cloud — structured HTML, no simple JSON feed, WebFetch-scrapeable." },
+    { "name": "Temenos (India R&D)", "sector": "core-banking-vendor", "tier": ["B"], "priority": "medium", "locations": ["Pune", "Chennai"], "careersUrl": "https://www.temenos.com/careers", "notes": "Swiss core-banking product company — real platform/DevOps engineering, not IT-services body-shopping." },
+    { "name": "FIS Global", "sector": "core-banking-fintech-infra-vendor", "tier": ["B"], "priority": "medium", "locations": ["Pune", "Bengaluru"], "careersUrl": "https://jobs.fis.global.com", "notes": "Large Pune/Bangalore GCC." },
+    { "name": "Finastra", "sector": "core-banking-vendor", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru"], "careersUrl": "https://www.finastra.com/careers", "notes": "DevOps is an explicit rotational track in their early-careers program — signals real DevOps headcount." },
+    { "name": "Kotak Mahindra Bank", "sector": "private-bank", "tier": ["B"], "priority": "low", "locations": ["Mumbai", "Bengaluru"], "careersUrl": "https://kotak.bank.in/careers/tech-jobs.html", "notes": "Dedicated tech-careers microsite exists (811 digital push), but bank-internal DevOps base pay typically below GCC/fintech levels." },
+    { "name": "IDFC First Bank", "sector": "private-bank", "tier": ["B"], "priority": "low", "locations": ["Mumbai", "Bengaluru"], "careersUrl": "https://careers.idfcfirstbank.com", "notes": "Real #TechNEXT digital-hiring track, dedicated portal, but comp likely borderline for 25 LPA at 2-4yr." },
+    { "name": "HDFC Life", "sector": "insurance-life", "tier": ["B"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://hdfclife.com/hdfc-careers/technology.html", "notes": "SWE avg only ~19.1L — DevOps at 2-4yr probably 15-22L. Below bar likely; keep for senior-track only." },
+    { "name": "Societe Generale (GSC)", "sector": "global-bank-gsc", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru", "Chennai"], "careersUrl": "https://careers.societegenerale.com", "notes": "Thin public comp data found — estimated good based on peer GCC comp, verify per-req." },
+    { "name": "State Street", "sector": "global-bank-gcc", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru", "Hyderabad"], "careersUrl": "https://www.statestreet.com/careers", "notes": "Thin public comp data found — verify per-req." },
+    { "name": "Nomura", "sector": "global-bank-gcc", "tier": ["B"], "priority": "medium", "locations": ["Mumbai", "Powai"], "careersUrl": "https://www.nomura.com/careers", "notes": "Thin public comp data found — verify per-req." },
+    { "name": "Intellect Design Arena", "sector": "core-banking-vendor", "tier": ["B"], "priority": "low", "locations": ["Chennai", "Bengaluru"], "careersUrl": "https://www.intellectdesign.com/careers", "notes": "Median SWE comp only ~8L (Levels.fyi) despite SRE/Cloud-Infra-Architect titles existing. Below bar — deprioritize firmly." },
+    { "name": "Navi", "sector": "fintech-nbfc", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru"], "careersUrl": "https://navi.turbohire.co", "notes": "TurboHire ATS, no clean public JSON. Growing lending/insurance NBFC, estimated moderate-good comp." },
+    { "name": "Digit Insurance (Go Digit)", "sector": "insurtech", "tier": ["B"], "priority": "medium", "locations": ["Bengaluru"], "careersUrl": "https://godigit.darwinbox.in", "notes": "Darwinbox ATS, no clean public JSON. Listed 2024, smaller DevOps bench than payments fintechs." },
+    { "name": "Bajaj Finserv", "sector": "nbfc", "tier": ["B"], "priority": "low", "locations": ["Pune"], "careersUrl": "https://bajajfinserv.jobsoid.com", "notes": "Jobsoid ATS, no clean public JSON. Large scale but traditionally conservative NBFC comp philosophy." },
+    { "name": "NPCI", "sector": "payments-infra-psu-adjacent", "tier": ["B"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://careers.npci.org.in/candidateportal", "notes": "Quasi-PSU body, decent but likely 15-25L range at 2-4yr, not reliably 25+." },
+
+    { "name": "Razorpay", "sector": "fintech-payments", "tier": ["C"], "priority": "high", "locations": ["Bengaluru"], "careersUrl": "https://razorpay.com/jobs", "notes": "No exposed ATS API. Senior DevOps avg ~33L, DevOps range up to 6.67M per Levels.fyi — strong bet despite needing manual/LinkedIn search." },
+    { "name": "PayU", "sector": "fintech-payments", "tier": ["C"], "priority": "medium", "locations": ["Bengaluru", "Gurugram"], "careersUrl": "https://corporate.payu.com/careers", "notes": "Estimated ~26-29L avg company-wide (small sample) — decent signal." },
+    { "name": "PolicyBazaar (PB Fintech)", "sector": "insurtech", "tier": ["C"], "priority": "medium", "locations": ["Gurugram"], "careersUrl": "https://www.policybazaar.com/careers", "notes": "Listed, stable. Estimated moderate comp." },
+    { "name": "Acko", "sector": "insurtech", "tier": ["C"], "priority": "medium", "locations": ["Mumbai", "Bengaluru"], "careersUrl": "https://www.acko.com/careers", "notes": "Amazon/General Atlantic-backed. Estimated moderate-good comp." },
+    { "name": "BharatPe", "sector": "fintech-payments", "tier": ["C"], "priority": "low", "locations": ["Delhi", "Bengaluru"], "careersUrl": "https://bharatpe.com/careers", "notes": "Recovered from 2022 governance scandal. Decent comp for merchant-payments space." },
+    { "name": "Cashfree Payments", "sector": "fintech-payments", "tier": ["C"], "priority": "low", "locations": ["Bengaluru"], "careersUrl": "https://www.cashfree.com/careers", "notes": "Decent SDE comp but site directs to email-resume, no ATS — deprioritize for automation." },
+    { "name": "Juspay", "sector": "fintech-payments-infra", "tier": ["C"], "priority": "low", "locations": ["Bengaluru"], "careersUrl": "https://juspay.in/careers", "notes": "CAUTION: careers page has shown zero open reqs at times. Small DevOps sample shows low pay, likely mis-tagged. Verify per-req before prioritizing." },
+    { "name": "Pine Labs", "sector": "fintech-payments-pos", "tier": ["C"], "priority": "low", "locations": ["Noida"], "careersUrl": "https://www.pinelabs.com/careers", "notes": "CAUTION: thin hiring pipeline post-IPO (Nov 2025) as of last check — may ramp up." },
+    { "name": "Upstox", "sector": "fintech-broking", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://upstox.com/careers", "notes": "Estimated moderate comp." },
+    { "name": "OneCard (FPL Technologies)", "sector": "fintech-nbfc-cards", "tier": ["C"], "priority": "low", "locations": ["Pune"], "careersUrl": "https://www.getonecard.app/careers", "notes": "Careers page has returned 403 on probe — reach via LinkedIn/Naukri." },
+    { "name": "Zerodha", "sector": "fintech-broking", "tier": ["C"], "priority": "low", "locations": ["Bengaluru"], "careersUrl": "https://zerodha.com/careers", "notes": "Excellent reputation and pay-per-head, but very thin DevOps/SRE headcount — bootstrapped, deliberately lean org (~1,500 employees). Poll monthly, not daily." },
+
+    { "name": "ICICI Bank", "sector": "private-bank", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.icicicareers.com", "notes": "Bank-internal DevOps comp reportedly median ~8.25L (Levels.fyi) — well below bar at 2-4yr. Only pursue AVP+/specialist tracks." },
+    { "name": "Axis Bank", "sector": "private-bank", "tier": ["C"], "priority": "low", "locations": ["Mumbai", "Bengaluru"], "careersUrl": "https://www.axisbank.com/careers", "notes": "Same bank-internal-tech comp pattern as ICICI — likely below bar at 2-4yr." },
+    { "name": "HDFC Bank", "sector": "private-bank", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.hdfcbank.com/personal/about-us/careers", "notes": "No dedicated DevOps/SRE listings surfaced; likely below-bar bank-internal tech comp at this band." },
+    { "name": "IndusInd Bank", "sector": "private-bank", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.indusind.com/in/en/personal/careers.html", "notes": "Estimated below bar; thin tech-specific hiring signal found." },
+    { "name": "Yes Bank", "sector": "private-bank", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.yesbank.in/careers", "notes": "Recovering post-2020 crisis (SBI-led rescue) — deprioritize on both comp and reputation grounds." },
+    { "name": "ICICI Lombard", "sector": "insurance-general", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.icicilombard.com/careers", "notes": "Glassdoor SWE total pay only ~8-13.5L. DevOps at 2-4yr very unlikely to hit 25 LPA." },
+    { "name": "Aditya Birla Capital", "sector": "nbfc", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://careers.adityabirlacapital.com", "notes": "Traditional conglomerate comp structure — estimated below/borderline." },
+    { "name": "L&T Finance", "sector": "nbfc", "tier": ["C"], "priority": "low", "locations": ["Mumbai"], "careersUrl": "https://www.ltfs.com/careers", "notes": "Estimated below bar — traditional NBFC comp." },
+
+    { "name": "State Bank of India (SBI) and other PSU banks", "sector": "psu-bank", "tier": ["C"], "priority": "low", "locations": ["Various"], "careersUrl": "https://sbi.co.in/careers", "notes": "PSU banks hire tech staff via IBPS-style IT-officer specialist-cadre recruitment at pay scales far below market-rate DevOps/SRE comp (typically well under 15 LPA even at 2-4yr). Lateral market-rate tech hiring essentially absent. Do not prioritize unless Kelvi explicitly reopens this tradeoff." }
+  ]
+}
