@@ -1,0 +1,15 @@
+{
+  "name": "devops-sre-job-hunt",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DevOps/SRE/Platform/Cloud BFSI job-hunt automation for Kelvi Manavadaria",
+  "scripts": {
+    "scan": "node scripts/scan.mjs --maxAgeHours 24 --verify",
+    "linkedin": "node scripts/linkedin_scrape.mjs",
+    "scheduler": "node scripts/scheduler.mjs"
+  },
+  "dependencies": {
+    "puppeteer": "^23.0.0"
+  }
+}

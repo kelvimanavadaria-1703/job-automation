@@ -1,0 +1,14 @@
+[Unit]
+Description=Devops Job Hunt Scheduler
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/devops-sre-job-hunt
+ExecStart=/usr/bin/node /opt/devops-sre-job-hunt/scripts/scheduler.mjs --intervalMinutes 15 --linkedinQuery "site reliability engineer" --linkedinLocation "Bengaluru" --notify
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

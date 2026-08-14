@@ -1,0 +1,6 @@
+node_modules/
+*.log
+resume/generated/*.pdf
+resume/generated/*.aux
+resume/generated/*.log
+resume/generated/*.out

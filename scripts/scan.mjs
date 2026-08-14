@@ -27,89 +27,21 @@ const REMOTE = /remote|anywhere|distributed|work from home|worldwide/i
 // that are unambiguously management/leadership regardless of sector.
 const MGMT_TITLE = /\b(director|head of|chief|distinguished|principal architect)\b/i
 
-const ENDPOINTS = {
-  greenhouse: s => `https://boards-api.greenhouse.io/v1/boards/${s}/jobs?content=true`,
-  lever: s => `https://api.lever.co/v0/postings/${s}?mode=json`,
-}
+// Modular adapters per provider
+import greenhouse from '../adapters/greenhouse.mjs'
+import lever from '../adapters/lever.mjs'
+import workday from '../adapters/workday.mjs'
+import oracle_orc from '../adapters/oracle_orc.mjs'
+import webfetch from '../adapters/webfetch.mjs'
+import linkedinGuest from '../adapters/linkedin_guest.mjs'
 
-const NORMALISE = {
-  greenhouse: d => (d.jobs ?? []).map(j => ({
-    title: j.title, location: j.location?.name ?? '', url: j.absolute_url,
-    description: j.content ?? '', posted: j.first_published ?? j.updated_at,
-  })),
-  lever: d => (Array.isArray(d) ? d : []).map(j => ({
-    title: j.text, location: j.categories?.location ?? '', url: j.hostedUrl,
-    description: j.descriptionPlain ?? j.description ?? '', posted: j.createdAt,
-  })),
-}
-
-// Workday CXS — POST-based search API, distinct shape from the GET boards above.
-async function fetchWorkday (company) {
-  const url = `https://${company.tenant}.${company.wdHost}.myworkdayjobs.com/wday/cxs/${company.tenant}/${company.site}/jobs`
-  const out = []
-  // Query per role keyword and de-dupe by externalPath — a single broad query
-  // sometimes misses postings that a narrower one catches, and Workday search
-  // is fielded text search, not a full listing.
-  const keywords = ['site reliability', 'devops', 'platform engineer', 'cloud engineer']
-  const seen = new Set()
-  for (const kw of keywords) {
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'user-agent': 'devops-sre-job-hunt/1.0' },
-        body: JSON.stringify({ appliedFacets: {}, limit: 20, offset: 0, searchText: kw }),
-        signal: AbortSignal.timeout(20_000),
-      })
-      if (!res.ok) continue
-      const data = await res.json()
-      for (const j of data.jobPostings ?? []) {
-        if (seen.has(j.externalPath)) continue
-        seen.add(j.externalPath)
-        out.push({
-          title: j.title,
-          location: j.locationsText ?? '',
-          url: `${company.jobViewBase}${j.externalPath}`,
-          description: '', // Workday CXS search response has no JD body; routine WebFetches the url if needed
-          posted: workdayRelativeToISO(j.postedOn),
-          postedRaw: j.postedOn,
-        })
-      }
-    } catch { /* keyword miss, try the next one */ }
-  }
-  return out
-}
-
-// Workday returns relative strings like "Posted Today" / "Posted 3 Days Ago",
-// not timestamps. Convert to an approximate ISO date so it sorts/filters the
-// same way as Greenhouse/Lever's real timestamps. "Posted 30+ Days Ago" is
-// left as a 30-day floor — precision beyond that doesn't matter for a <=48h filter.
-function workdayRelativeToISO (postedOn) {
-  if (!postedOn) return null
-  const now = Date.now()
-  const DAY = 86_400_000
-  if (/today/i.test(postedOn)) return new Date(now).toISOString()
-  const m = postedOn.match(/(\d+)\+?\s*Day/i)
-  if (m) return new Date(now - Number(m[1]) * DAY).toISOString()
-  return new Date(now - 30 * DAY).toISOString() // unresolvable strings (e.g. "30+ Days Ago") — treat as stale
-}
+const ADAPTERS = { greenhouse, lever, workday, oracle_orc, webfetch }
 
 async function fetchBoard (company) {
-  if (company.provider === 'workday') {
-    try {
-      return { company, jobs: await fetchWorkday(company) }
-    } catch (err) {
-      return { company, error: err.message }
-    }
-  }
-  const build = ENDPOINTS[company.provider]
-  if (!build) return { company, error: `unsupported provider ${company.provider}` }
+  const adapter = ADAPTERS[company.provider] ?? webfetch
   try {
-    const res = await fetch(build(company.slug), {
-      headers: { 'user-agent': 'devops-sre-job-hunt/1.0' },
-      signal: AbortSignal.timeout(20_000),
-    })
-    if (!res.ok) return { company, error: `HTTP ${res.status}` }
-    return { company, jobs: NORMALISE[company.provider](await res.json()) }
+    const jobs = await adapter(company)
+    return { company, jobs }
   } catch (err) {
     return { company, error: err.message }
   }
@@ -118,15 +50,30 @@ async function fetchBoard (company) {
 const args = process.argv.slice(2)
 const maxAgeHours = args.includes('--maxAgeHours') ? Number(args[args.indexOf('--maxAgeHours') + 1]) : null
 const locFilter = args.includes('--loc') ? args[args.indexOf('--loc') + 1]?.toLowerCase() : null
+const verify = args.includes('--verify') // optional URL verification to filter expired/removed postings
+const notify = args.includes('--notify') // send Slack notification when matches found
+const noLinkedin = args.includes('--noLinkedin') // skip the LinkedIn guest-search pass
 
 const registry = JSON.parse(await readFile(join(ROOT, 'data/companies.json'), 'utf8'))
 const verified = registry.companies.filter(c => c.tier.includes('A'))
+
+// Lowercased-name -> company record, for tagging LinkedIn hits with the same
+// priority/sector metadata already researched for that employer.
+const registryByName = new Map(registry.companies.map(c => [c.name.toLowerCase(), c]))
+function lookupCompany (name) {
+  const key = (name || '').toLowerCase()
+  if (registryByName.has(key)) return registryByName.get(key)
+  for (const [regName, c] of registryByName) {
+    if (key.includes(regName) || regName.includes(key)) return c
+  }
+  return null
+}
 
 console.error(`Scanning ${verified.length} verified tier-A boards…\n`)
 
 const results = await Promise.all(verified.map(fetchBoard))
 const stale = []
-const matches = []
+let matches = []
 const now = Date.now()
 const HOUR = 3_600_000
 
@@ -161,12 +108,108 @@ for (const { company, jobs, error } of results) {
   }
 }
 
+// LinkedIn guest job search — casts a much wider net than the ~40 direct-ATS
+// boards above, catching companies not yet in the registry at all (this is
+// the fix for "LinkedIn has openings we're not finding"). No login needed.
+const discoveredCompanies = new Set()
+if (!noLinkedin) {
+  console.error('Searching LinkedIn (guest, no login)…')
+  const linkedinAgeHours = maxAgeHours ?? 24
+  const queries = [
+    { keywords: 'devops engineer OR site reliability engineer OR platform engineer OR cloud engineer OR infrastructure engineer', location: 'India' },
+    { keywords: 'devops engineer OR site reliability engineer OR platform engineer', location: 'Remote' },
+  ]
+  for (const q of queries) {
+    try {
+      const jobs = await linkedinGuest({ ...q, maxAgeHours: linkedinAgeHours, maxPages: 5 })
+      for (const job of jobs) {
+        const where = job.location || ''
+        if (!ROLE.test(job.title)) continue
+        if (!INDIA.test(where) && !REMOTE.test(where)) continue
+        if (locFilter && !where.toLowerCase().includes(locFilter)) continue
+
+        const ageHours = job.posted ? (now - new Date(job.posted).getTime()) / HOUR : null
+        if (maxAgeHours !== null && (ageHours === null || ageHours > maxAgeHours)) continue
+
+        const known = lookupCompany(job.company)
+        if (!known) discoveredCompanies.add(job.company)
+
+        matches.push({
+          company: job.company,
+          sector: known?.sector ?? 'linkedin-discovered',
+          priority: known?.priority ?? 'medium',
+          source: 'linkedin',
+          title: job.title,
+          location: where,
+          isManagementTitle: MGMT_TITLE.test(job.title),
+          ageHours: ageHours === null ? null : Math.round(ageHours),
+          postedRaw: job.postedRaw ?? job.posted,
+          description: job.description ?? '',
+          url: job.url,
+          salaryNote: known ? `estimated — see companies.json notes for ${known.name}` : 'not in company registry — unverified comp',
+        })
+      }
+    } catch (err) {
+      stale.push({ name: `LinkedIn (${q.location})`, provider: 'linkedin', error: err.message })
+    }
+  }
+}
+
 // Freshest first, then by priority.
 const prioRank = p => (p === 'high' ? 0 : p === 'medium' ? 1 : 2)
 matches.sort((a, b) => (a.ageHours ?? 999) - (b.ageHours ?? 999) || prioRank(a.priority) - prioRank(b.priority))
 
+// Dedup by URL — some registry entries share one ATS tenant (e.g. Oracle /
+// Oracle Financial Services Software both resolve to the same ORC host) and
+// would otherwise double-count the identical requisition under two names.
+{
+  const seenUrls = new Set()
+  matches = matches.filter(m => {
+    if (seenUrls.has(m.url)) return false
+    seenUrls.add(m.url)
+    return true
+  })
+}
+
+if (verify) {
+  console.error('Verifying job URLs to filter expired/removed postings (this may slow the scan)...')
+  const verified = []
+  for (const m of matches) {
+    try {
+      const res = await fetch(m.url, { headers: { 'user-agent': 'devops-sre-job-hunt/1.0' }, signal: AbortSignal.timeout(10_000) })
+      if (!res.ok) {
+        stale.push({ name: m.company, provider: m.source, error: `HTTP ${res.status} on ${m.url}` })
+        continue
+      }
+      const text = await res.text()
+      const lower = text.toLowerCase()
+      if (/no longer available|position has been filled|this job is closed|expired|404 not found|we no longer accept applications|position closed/.test(lower)) {
+        stale.push({ name: m.company, provider: m.source, error: `Marked expired by page content` })
+        continue
+      }
+      verified.push(m)
+    } catch (err) {
+      stale.push({ name: m.company, provider: m.source, error: err.message })
+    }
+  }
+  matches = verified
+}
+
 await writeFile(join(ROOT, 'data/jobs.raw.json'),
-  JSON.stringify({ scannedAt: new Date().toISOString(), matches, stale }, null, 2))
+  JSON.stringify({ scannedAt: new Date().toISOString(), matches, stale, discoveredCompanies: [...discoveredCompanies] }, null, 2))
+
+if (notify) {
+  const webhook = process.env.SLACK_WEBHOOK_URL
+  if (!webhook) console.error('Notification requested but SLACK_WEBHOOK_URL not set in environment')
+  else {
+    try {
+      const top = matches.slice(0, 5).map(m => `• ${m.company} — ${m.title} (${m.location}) <${m.url}|link>`).join('\n') || 'No fresh matches'
+      const payload = { text: `Job scan: ${matches.length} matches found\n${top}` }
+      await fetch(webhook, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), signal: AbortSignal.timeout(10_000) })
+      console.error('Sent Slack notification')
+    } catch (err) { console.error('Failed to send Slack notification:', err.message) }
+  }
+}
 
 console.log(`${matches.length} DevOps/SRE/Platform/Cloud roles matched across tier-A boards\n`)
 for (const m of matches) {
@@ -179,4 +222,9 @@ for (const m of matches) {
 if (stale.length) {
   console.log(`\n⚠  ${stale.length} board(s) failed — endpoint may have moved, do NOT read as "no openings":`)
   for (const s of stale) console.log(`     ${s.name} (${s.provider}) — ${s.error}`)
+}
+
+if (discoveredCompanies.size) {
+  console.log(`\n📋 ${discoveredCompanies.size} company/companies hiring via LinkedIn but NOT in companies.json (worth adding):`)
+  for (const c of discoveredCompanies) console.log(`     ${c}`)
 }

@@ -1,0 +1,246 @@
+    %-----------------------------------------------------------------------------------------------------------------------------------------------%
+    % The MIT License (MIT)
+    %
+    % Copyright (c) 2021 Jitin Nair
+    %
+    % Permission is hereby granted, free of charge, to any person obtaining a copy
+    % of this software and associated documentation files (the "Software"), to deal
+    % in the Software without restriction, including without limitation the rights
+    % to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    % copies of the Software, and to permit persons to whom the Software is
+    % furnished to do so, subject to the following conditions:
+    %
+    % THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    % IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    % FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    % AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    % LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    % OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    % THE SOFTWARE.
+    %
+    %-----------------------------------------------------------------------------------------------------------------------------------------------%
+
+    %----------------------------------------------------------------------------------------
+    % DOCUMENT DEFINITION
+    %----------------------------------------------------------------------------------------
+
+    \documentclass[a4paper,10.999999pt]{article}
+
+    %----------------------------------------------------------------------------------------
+    % PACKAGES
+    %----------------------------------------------------------------------------------------
+    \usepackage{url}
+    \usepackage{parskip}
+
+    % other packages for formatting
+    \RequirePackage{color}
+    \RequirePackage{graphicx}
+    \usepackage[usenames,dvipsnames]{xcolor}
+    \usepackage[scale=0.85, top=0.85cm, bottom=0.85cm, left=0.85cm, right=0.85cm]{geometry}
+
+    % tabularx environment
+    \usepackage{tabularx}
+
+    % for lists within experience section
+    \usepackage{enumitem}
+    \usepackage{setspace}
+
+    % centered version of 'X' col. type
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+
+    % to prevent spillover of tabular into next pages
+    \usepackage{supertabular}
+    \usepackage{tabularx}
+    \newlength{\fullcollw}
+    \setlength{\fullcollw}{0.47\textwidth}
+
+    % custom \section
+    \usepackage{titlesec}
+    \usepackage{multicol}
+    \usepackage{multirow}
+
+    % section formatting - BALANCED SPACING
+    \titleformat{\section}{\large\scshape\raggedright}{}{0em}{}[\titlerule]
+    \titlespacing{\section}{0pt}{5pt}{3pt}
+
+    % global spacing tweaks - BALANCED
+    \setlength{\parskip}{1pt}
+    \setlength{\parindent}{0pt}
+    \setlist[itemize]{nosep, topsep=1pt, partopsep=0pt, leftmargin=1em, itemsep=1pt}
+    \linespread{0.962}\selectfont
+
+    % for publications (kept but unused)
+    \usepackage[style=authoryear,sorting=ynt, maxbibnames=2]{biblatex}
+    \usepackage[unicode, draft=false]{hyperref}
+    \definecolor{linkcolour}{rgb}{0,0.2,0.6}
+    \hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
+    \addbibresource{citations.bib}
+    \setlength\bibitemsep{1em}
+
+    % for social icons
+    \usepackage{fontawesome5}
+
+    % job listing environments - BALANCED VERTICAL SPACE
+    \newenvironment{jobshort}[2]
+        {
+        \begin{tabularx}{\linewidth}{@{}l X r@{}}
+        \textbf{#1} & \hfill &  #2 \\[-1pt]
+        \end{tabularx}
+        }
+        {}
+
+    \newenvironment{joblong}[2]
+        {
+        \begin{tabularx}{\linewidth}{@{}l X r@{}}
+        \textbf{#1} & \hfill &  #2 \\[-1pt]
+        \end{tabularx}
+        \vspace{-3.2pt}
+        \begin{minipage}[t]{\linewidth}
+        \begin{itemize}[nosep, after=\strut, leftmargin=0.5em, itemsep=1pt, label=\raisebox{0.2ex}{\tiny$\circ$}]
+        }
+        {
+        \end{itemize}
+        \end{minipage}
+        \vspace{-3.2pt}
+        }
+
+    % Custom nested itemize style
+    \newcommand{\subbulletitem}[1]{
+      \item[\raisebox{0.20ex}{\small$-$}] #1
+    }
+
+    %----------------------------------------------------------------------------------------
+    % BEGIN DOCUMENT
+    %----------------------------------------------------------------------------------------
+    %----------------------------------------------------------------------------------------
+    % BEGIN DOCUMENT
+    %----------------------------------------------------------------------------------------
+    \begin{document}
+
+    \pagestyle{empty}
+
+    %----------------------------------------------------------------------------------------
+    % TITLE
+    %----------------------------------------------------------------------------------------
+
+
+    \begin{tabularx}{\linewidth}{@{} C @{}}
+    \LARGE{Kelvi Manavadaria} \\[4pt]
+    \href{mailto:kelvimanavadaria@gmail.com}{kelvimanavadaria@gmail.com} \ $|$ \
+    +91 7862036686 \ $|$ \
+    \href{https://github.com/KelviManavadaria-17}{github.com/KelviManavadaria-17} \ $|$ \
+    \href{https://www.linkedin.com/in/kelvi-manavadaria/}{linkedin.com/in/kelvi-manavadaria}
+    \end{tabularx}
+
+    %----------------------------------------------------------------------------------------
+
+    \section{Summary}
+DevOps Engineer with 2+ years of experience designing and running multi-cloud (AWS, Azure) infrastructure, CI/CD pipelines, and Kubernetes-based deployments. Skilled in GitOps automation, Terraform, and container orchestration, with a track record of building highly available systems and the observability to keep them that way.
+
+    % SKILLS SECTION
+    %----------------------------------------------------------------------------------------
+
+    \section{Skills}
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
+    \item \textbf{CI/CD \& GitOps:} Jenkins, ArgoCD, GitHub Actions, AWS CodePipeline, AWS CodeBuild, GitOps
+    \item \textbf{Containerization \& Orchestration:} Kubernetes, Docker, Helm
+    \item \textbf{Cloud:} AWS (EC2, ECR, Lambda, Glue, Athena, API Gateway, Cognito, EventBridge, CloudTrail), Azure (Azure Monitor)
+    \item \textbf{Infrastructure as Code (IaC):} Terraform, Ansible
+    \item \textbf{Observability:} Prometheus, Grafana, New Relic, CloudWatch, Elasticsearch (ELK Stack)
+    \item \textbf{SRE Practices:} SLA/SLO/SLI, Error Budgets, Incident Management, Root Cause Analysis (RCA), 24x7 On-Call, MTTR Reduction
+    \item \textbf{Systems:} Linux, Networking, Distributed Systems
+    \item \textbf{Architecture:} Microservices, High Availability, Fault Tolerance, Disaster Recovery
+    \item \textbf{Languages \& Scripting:} Python, Java, Bash
+    \end{itemize}
+
+    %----------------------------------------------------------------------------------------
+    % WORK EXPERIENCE
+    %----------------------------------------------------------------------------------------
+
+    \section{Work Experience}
+
+    \begin{joblong}{DevOps Engineer}{Dec 2023 -- Present}
+    Intuitive.Cloud
+    \item \textbf{Outsourced as Platform Engineer at Thomson Reuters}
+    \begin{itemize}
+    \item Deployed indirect tax calculation microservices on \textbf{Kubernetes} clusters using \textbf{Helm}, enabling \textbf{scalable}, \textbf{fault-tolerant}, and \textbf{highly available systems} across environments via \textbf{CI/CD pipelines}, and architected a \textbf{multi-layer observability stack} for proactive alerting.
+    \item Automated workflows following \textbf{GitOps} practices using \textbf{GitHub Actions} for building custom Docker images, and built authentication for secure image access to \textbf{Amazon ECR} using \textbf{AWS Cognito}.
+    \end{itemize}
+    \vspace{5pt}
+
+    \item \textbf{Site Reliability Engineer (SRE) in Cloud Managed Services Team}
+    \begin{itemize}
+
+    \item Applied \textbf{SRE} practices including \textbf{24x7 on-call production support}, \textbf{incident management}, \textbf{root cause analysis (RCA)}, and proactive reliability improvements, ensuring adherence to \textbf{SLA/SLO} targets and \textbf{error budgets}, improving system stability in a \textbf{high-availability distributed environment}.
+    \item Designed a monitoring solution leveraging \textbf{New Relic} for enhanced observability across \textbf{30+ accounts}.
+    \item Automated alerting using \textbf{CloudWatch, EventBridge, CloudTrail, Lambda}, aligned with \textbf{SLI/SLO} and proactive incident management.
+
+    \item Built hybrid monitoring with \textbf{Azure Monitor}, ensuring \textbf{high availability} and supporting \textbf{business continuity} across multi-cloud environments.
+    \item Processed \textbf{10+ TB/day} structured and unstructured data using \textbf{AWS Glue} and ETL pipelines for real-time analytics.
+    \item Built querying system using \textbf{AWS Athena, AWS Lambda, API Gateway}, reducing \textbf{MTTR} and improving debugging efficiency.
+
+
+    \end{itemize}
+
+    \end{joblong}
+
+    \begin{joblong}{Cloud Engineer Intern}{May 2023 -- Jun 2023}
+    Mactores Innovation
+    \item \textbf{High-Availability CI/CD Pipeline in AWS}
+    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=1pt, label=\raisebox{0.25ex}{\small$-$}]
+    \item Implemented a resilient \textbf{CI/CD pipeline} using \textbf{AWS CodePipeline, CodeBuild, and GitHub Actions}, ensuring \textbf{99.95\% uptime}.
+    \end{itemize}
+    \end{joblong}
+
+    \begin{joblong}{DevOps Intern}{May 2022 -- May 2023}
+    Motorola Solutions
+    \item \textbf{Scalable Logging and Monitoring with ELK Stack}
+    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=1pt, label=\raisebox{0.25ex}{\small$-$}]
+    \item Built centralized \textbf{logging and monitoring system} using \textbf{ELK Stack} and \textbf{Docker}, improving observability and debugging efficiency.
+    \end{itemize}
+    \end{joblong}
+
+    %----------------------------------------------------------------------------------------
+    % PROJECTS SECTION
+    %----------------------------------------------------------------------------------------
+
+    \section{Projects and Blogs}
+
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
+    \item \textbf{Other Projects} \href{https://github.com/KelviManavadaria-17}{[Github]}
+    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=1pt, label=\raisebox{0.25ex}{\small$-$}]
+    \item Configured a \textbf{CI/CD pipeline} integrating \textbf{Jenkins, GitHub Actions, and Argo CD} for automated \textbf{Kubernetes deployments}.
+    \end{itemize}
+    \item \textbf{Blogs} \href{https://medium.com/@KelviManavadaria}{[Medium]}
+    \end{itemize}
+
+    %----------------------------------------------------------------------------------------
+    % EDUCATION SECTION
+    %----------------------------------------------------------------------------------------
+
+    \section{Education}
+
+    \begin{tabularx}{\linewidth}{@{}l X r@{}}
+    2020 -- 2024 & \textbf{B. Tech in Computer Engineering} & \textbf{GPA: 9.55} \\
+    & Charotar University of Science and Technology & \\
+    \end{tabularx}
+
+    \vspace{3pt}
+
+    %----------------------------------------------------------------------------------------
+    % CERTIFICATIONS SECTION
+    %----------------------------------------------------------------------------------------
+
+    \section{Certifications}
+
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
+    \item \textbf{AWS:} Solutions Architect – Associate (Expired Jun 2026) \ $|$ \ SysOps Administrator – Associate (Valid thru Apr 2027) \ $|$ \ Cloud Practitioner (Valid thru Apr 2027)
+    \item Certified Kubernetes Administrator (CKA) — Valid thru Nov 2026
+    \item \textbf{Multi-Cloud:} Google Cloud Digital Leader (Valid thru Feb 2027) \ $|$ \ Microsoft Certified: Azure Fundamentals (Issued Dec 2022)
+    \item HashiCorp Certified: Terraform Associate (003) (Expired Oct 2025)
+    \item \href{https://www.credly.com/users/kelvi-manavadaria}{Additional Certifications (incl. AWS Partner: Sales \& Technical Accredited)}
+    \end{itemize}
+
+    \vspace{1.5pt}
+
+    \end{document}
