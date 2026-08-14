@@ -81,19 +81,19 @@
     \usepackage{fontawesome5}
     
     % job listing environments - BALANCED VERTICAL SPACE
+    % Plain \hfill-aligned lines instead of tabularx: ATS parsers frequently
+    % read table cells out of visual order (e.g. pull the date before the
+    % title). A single line with \hfill renders identically but extracts as
+    % ordinary left-to-right text.
     \newenvironment{jobshort}[2]
         {
-        \begin{tabularx}{\linewidth}{@{}l X r@{}}
-        \textbf{#1} & \hfill &  #2 \\[-1pt]
-        \end{tabularx}
+        \noindent\textbf{#1}\hfill{#2}\par
         }
         {}
-    
+
     \newenvironment{joblong}[2]
         {
-        \begin{tabularx}{\linewidth}{@{}l X r@{}}
-        \textbf{#1} & \hfill &  #2 \\[-1pt]
-        \end{tabularx}
+        \noindent\textbf{#1}\hfill{#2}\par
         \vspace{-3.2pt}
         \begin{minipage}[t]{\linewidth}
         \begin{itemize}[nosep, after=\strut, leftmargin=0.5em, itemsep=1pt, label=\raisebox{0.2ex}{\tiny$\circ$}]
@@ -124,13 +124,13 @@
     %----------------------------------------------------------------------------------------
     
     
-    \begin{tabularx}{\linewidth}{@{} C @{}}
+    \begin{center}
     \LARGE{Kelvi Manavadaria} \\[4pt]
-    \href{mailto:kelvimanavadaria@gmail.com}{kelvimanavadaria@gmail.com} \ $|$ \ 
-    +91 7862036686 \ $|$ \ 
-    \href{https://github.com/KelviManavadaria-17}{github.com/KelviManavadaria-17} \ $|$ \ 
+    \href{mailto:kelvimanavadaria@gmail.com}{kelvimanavadaria@gmail.com} \ $|$ \
+    +91 7862036686 \ $|$ \
+    \href{https://github.com/KelviManavadaria-17}{github.com/KelviManavadaria-17} \ $|$ \
     \href{https://www.linkedin.com/in/kelvi-manavadaria/}{linkedin.com/in/kelvi-manavadaria}
-    \end{tabularx}
+    \end{center}
     
     %----------------------------------------------------------------------------------------
     
@@ -221,10 +221,8 @@ in Kubernetes, CI/CD, and infrastructure as code. Focused on observability and a
     
     \section{Education}
     
-    \begin{tabularx}{\linewidth}{@{}l X r@{}}
-    2020 -- 2024 & \textbf{B. Tech in Computer Engineering} & \textbf{GPA: 9.55} \\
-    & Charotar University of Science and Technology & \\
-    \end{tabularx}
+    \noindent\textbf{B. Tech in Computer Engineering}\hfill{2020 -- 2024}\par
+    \noindent Charotar University of Science and Technology\hfill{\textbf{GPA: 9.55}}\par
     
     \vspace{3pt}
     
