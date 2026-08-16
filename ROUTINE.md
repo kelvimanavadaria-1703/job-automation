@@ -54,6 +54,11 @@ Runs **every hour**, on the :26 minute mark (`26 * * * *` UTC).
    still fits everything on one page; if even the tightest config doesn't
    fit, it lets the resume spill onto a second page rather than clip content
    or shrink past legibility — one page is preferred, not mandatory.
+   **Fitting to one page is only ever a font-size/spacing decision, never a
+   content decision** — no skill, bullet, or certification is ever dropped
+   to save space. `render_resume_pdf.mjs` enforces this with a hard runtime
+   check: it counts skills/bullets/certifications before and after
+   tailoring and throws if they ever diverge.
 6. **Send an email** via Gmail to kelvimanavadaria@gmail.com **only if this
    run found ≥1 new match.** No heartbeat — at hourly cadence a per-run
    "0 new matches" email would be constant noise. The tailored resume(s) go
