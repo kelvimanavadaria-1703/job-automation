@@ -67,16 +67,31 @@ const verified = registry.companies.filter(c => c.tier.includes('A'))
 // Lowercased-name -> company record, for tagging LinkedIn hits with the same
 // priority/sector metadata already researched for that employer.
 const registryByName = new Map(registry.companies.map(c => [c.name.toLowerCase(), c]))
+// Generic corporate/geographic words that appear across many unrelated
+// company names — even after requiring whole-word overlap (not substring),
+// a word like "india" or "group" alone still matched "Scoutit India" against
+// "D. E. Shaw India" and "TAG Software Group" against "NatWest Group (GBS)",
+// mis-tagging an unrelated LinkedIn-discovered company with a real one's
+// sector/priority/salary data. Excluded from driving a match on their own.
+const GENERIC_WORDS = new Set([
+  'india', 'group', 'global', 'globally', 'technologies', 'technology', 'tech',
+  'solutions', 'solution', 'services', 'service', 'software', 'systems',
+  'system', 'international', 'ltd', 'limited', 'inc', 'incorporated', 'corp',
+  'corporation', 'company', 'co', 'bank', 'banking', 'capital', 'financial',
+  'finance', 'holdings', 'holding', 'consulting', 'labs', 'lab', 'digital',
+  'network', 'networks', 'private', 'pvt', 'llc', 'llp', 'plc', 'gcc', 'gbs',
+])
 function lookupCompany (name) {
   const key = (name || '').toLowerCase().trim()
   if (!key) return null
   if (registryByName.has(key)) return registryByName.get(key)
-  // Whole-word overlap only — raw substring containment falsely matched short
-  // names inside unrelated longer ones (e.g. "UST" inside "Northern Trust"),
-  // mis-tagging LinkedIn-discovered companies with the wrong sector/priority.
-  const keyWords = key.split(/\s+/).filter(w => w.length > 3)
+  // Whole-word overlap on distinctive (non-generic) words only — raw
+  // substring containment falsely matched short names inside unrelated
+  // longer ones (e.g. "UST" inside "Northern Trust").
+  const keyWords = key.split(/\s+/).filter(w => w.length > 3 && !GENERIC_WORDS.has(w))
+  if (!keyWords.length) return null
   for (const [regName, c] of registryByName) {
-    const regWords = regName.split(/\s+/).filter(w => w.length > 3)
+    const regWords = regName.split(/\s+/).filter(w => w.length > 3 && !GENERIC_WORDS.has(w))
     if (regWords.some(w => keyWords.includes(w))) return c
   }
   return null
