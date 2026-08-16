@@ -49,6 +49,13 @@ async function fetchBoard (company) {
 
 const args = process.argv.slice(2)
 const maxAgeHours = args.includes('--maxAgeHours') ? Number(args[args.indexOf('--maxAgeHours') + 1]) : null
+// LinkedIn's guest search reports freshness in coarse relative buckets ("1 day
+// ago") and its own index lags new postings — tying its lookback to a tight
+// --maxAgeHours (e.g. 2h for an hourly run) starves it of results almost every
+// run. Give it its own, wider default; dedup against seen-urls state (Drive/
+// Sheet) is what prevents re-reporting the same posting every run, not a
+// narrow window.
+const linkedinMaxAgeHours = args.includes('--linkedinMaxAgeHours') ? Number(args[args.indexOf('--linkedinMaxAgeHours') + 1]) : 24
 const locFilter = args.includes('--loc') ? args[args.indexOf('--loc') + 1]?.toLowerCase() : null
 const verify = args.includes('--verify') // optional URL verification to filter expired/removed postings
 const notify = args.includes('--notify') // send Slack notification when matches found
@@ -61,10 +68,16 @@ const verified = registry.companies.filter(c => c.tier.includes('A'))
 // priority/sector metadata already researched for that employer.
 const registryByName = new Map(registry.companies.map(c => [c.name.toLowerCase(), c]))
 function lookupCompany (name) {
-  const key = (name || '').toLowerCase()
+  const key = (name || '').toLowerCase().trim()
+  if (!key) return null
   if (registryByName.has(key)) return registryByName.get(key)
+  // Whole-word overlap only — raw substring containment falsely matched short
+  // names inside unrelated longer ones (e.g. "UST" inside "Northern Trust"),
+  // mis-tagging LinkedIn-discovered companies with the wrong sector/priority.
+  const keyWords = key.split(/\s+/).filter(w => w.length > 3)
   for (const [regName, c] of registryByName) {
-    if (key.includes(regName) || regName.includes(key)) return c
+    const regWords = regName.split(/\s+/).filter(w => w.length > 3)
+    if (regWords.some(w => keyWords.includes(w))) return c
   }
   return null
 }
@@ -114,7 +127,7 @@ for (const { company, jobs, error } of results) {
 const discoveredCompanies = new Set()
 if (!noLinkedin) {
   console.error('Searching LinkedIn (guest, no login)…')
-  const linkedinAgeHours = maxAgeHours ?? 24
+  const linkedinAgeHours = linkedinMaxAgeHours
   const queries = [
     { keywords: 'devops engineer OR site reliability engineer OR platform engineer OR cloud engineer OR infrastructure engineer', location: 'India' },
     { keywords: 'devops engineer OR site reliability engineer OR platform engineer', location: 'Remote' },
@@ -129,7 +142,7 @@ if (!noLinkedin) {
         if (locFilter && !where.toLowerCase().includes(locFilter)) continue
 
         const ageHours = job.posted ? (now - new Date(job.posted).getTime()) / HOUR : null
-        if (maxAgeHours !== null && (ageHours === null || ageHours > maxAgeHours)) continue
+        if (ageHours === null || ageHours > linkedinAgeHours) continue
 
         const known = lookupCompany(job.company)
         if (!known) discoveredCompanies.add(job.company)
@@ -175,6 +188,11 @@ if (verify) {
   console.error('Verifying job URLs to filter expired/removed postings (this may slow the scan)...')
   const verified = []
   for (const m of matches) {
+    // Skip LinkedIn: already freshly confirmed live by the guest-search fetch
+    // this same run, and a plain-UA fetch against linkedin.com/jobs/view/ is
+    // likely to get bot-blocked (HTTP 999/403) rather than genuinely detect
+    // expiry — that was silently dropping real, live LinkedIn matches.
+    if (m.source === 'linkedin') { verified.push(m); continue }
     try {
       const res = await fetch(m.url, { headers: { 'user-agent': 'devops-sre-job-hunt/1.0' }, signal: AbortSignal.timeout(10_000) })
       if (!res.ok) {
@@ -211,7 +229,7 @@ if (notify) {
   }
 }
 
-console.log(`${matches.length} DevOps/SRE/Platform/Cloud roles matched across tier-A boards\n`)
+console.log(`${matches.length} DevOps/SRE/Platform/Cloud roles matched (tier-A boards + LinkedIn)\n`)
 for (const m of matches) {
   const age = m.ageHours === null ? 'age unknown' : `${m.ageHours}h old`
   console.log(`  [${m.priority.padEnd(6)}] ${m.company} — ${m.title}`)
