@@ -243,8 +243,34 @@ function layout (doc, content, cfg, { draw }) {
   return y
 }
 
+// Counts every keyword-bearing item so tailoring/rendering can never
+// silently drop content to make it fit — reordering and rewording the
+// Summary are the only edits allowed; nothing gets shorter or disappears.
+function countItems (content) {
+  const bulletCount = content.experience.reduce(
+    (n, job) => n + job.bulletGroups.reduce((m, g) => m + g.bullets.length, 0), 0)
+  const projectBullets = (content.projects || []).reduce((n, p) => n + p.bullets.length, 0)
+  return {
+    skills: content.skills.length,
+    bullets: bulletCount,
+    projectBullets,
+    certifications: content.certifications.length,
+  }
+}
+
 async function render ({ content, tailor, outPath }) {
   const tailored = applyTailoring(content, tailor)
+
+  const before = countItems(content)
+  const after = countItems(tailored)
+  for (const key of Object.keys(before)) {
+    if (before[key] !== after[key]) {
+      throw new Error(
+        `Tailoring dropped content: ${key} went from ${before[key]} to ${after[key]}. ` +
+        `Tailoring may only reorder skills/bullet-groups and reword the Summary — ` +
+        `it must never omit a skill, bullet, or certification to save space.`)
+    }
+  }
 
   // Pass 1: measure at each config (throwaway doc, never written to disk).
   const probe = new PDFDocument({ ...PAGE, margin: 0, bufferPages: true })
