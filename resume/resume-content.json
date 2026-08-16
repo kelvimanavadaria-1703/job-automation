@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "header": {
+    "name": "Kelvi Manavadaria",
+    "email": "kelvimanavadaria@gmail.com",
+    "phone": "+91 7862036686",
+    "github": { "label": "github.com/KelviManavadaria-17", "url": "https://github.com/KelviManavadaria-17" },
+    "linkedin": { "label": "linkedin.com/in/kelvi-manavadaria", "url": "https://www.linkedin.com/in/kelvi-manavadaria/" }
+  },
+  "summary": "DevOps/SRE Engineer with 2+ years of experience building scalable and highly available systems on AWS and Azure. Skilled in Kubernetes, CI/CD, and infrastructure as code. Focused on observability and automation.",
+  "skills": [
+    { "category": "Cloud", "items": "AWS (EC2, ECR, Lambda, Glue, Athena, API Gateway, Cognito, EventBridge, CloudTrail), Azure (Azure Monitor)" },
+    { "category": "CI/CD & GitOps", "items": "Jenkins, ArgoCD, GitHub Actions, AWS CodePipeline, AWS CodeBuild, GitOps" },
+    { "category": "Containerization & Orchestration", "items": "Kubernetes, Docker, Helm" },
+    { "category": "Infrastructure as Code (IaC)", "items": "Terraform, Ansible" },
+    { "category": "Observability", "items": "Prometheus, Grafana, New Relic, CloudWatch, Elasticsearch (ELK Stack)" },
+    { "category": "SRE Practices", "items": "SLA/SLO/SLI, Error Budgets, Incident Management, Root Cause Analysis (RCA), 24x7 On-Call, MTTR Reduction" },
+    { "category": "Systems", "items": "Linux, Networking, Distributed Systems" },
+    { "category": "Architecture", "items": "Microservices, High Availability, Fault Tolerance, Disaster Recovery" },
+    { "category": "Languages & Scripting", "items": "Python, Java, Bash" }
+  ],
+  "experience": [
+    {
+      "title": "DevOps Engineer",
+      "dates": "Dec 2023 -- Present",
+      "company": "Intuitive.Cloud",
+      "bulletGroups": [
+        {
+          "id": "platform",
+          "heading": "Outsourced as Platform Engineer at Thomson Reuters",
+          "bullets": [
+            "Deployed indirect tax calculation microservices on Kubernetes clusters using Helm, enabling scalable, fault-tolerant, and highly available systems across environments via CI/CD pipelines, and architected a multi-layer observability stack for proactive alerting.",
+            "Automated workflows following GitOps practices using GitHub Actions for building custom Docker images, and built authentication for secure image access to Amazon ECR using AWS Cognito."
+          ]
+        },
+        {
+          "id": "sre",
+          "heading": "Site Reliability Engineer (SRE) in Cloud Managed Services Team",
+          "bullets": [
+            "Applied SRE practices including 24x7 on-call production support, incident management, root cause analysis (RCA), and proactive reliability improvements, ensuring adherence to SLA/SLO targets and error budgets, improving system stability in a high-availability distributed environment.",
+            "Designed a monitoring solution leveraging New Relic for enhanced observability across 30+ accounts.",
+            "Automated alerting using CloudWatch, EventBridge, CloudTrail, Lambda, aligned with SLI/SLO and proactive incident management.",
+            "Built hybrid monitoring with Azure Monitor, ensuring high availability and supporting business continuity across multi-cloud environments.",
+            "Processed 10+ TB/day structured and unstructured data using AWS Glue and ETL pipelines for real-time analytics.",
+            "Built querying system using AWS Athena, AWS Lambda, API Gateway, reducing MTTR and improving debugging efficiency."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cloud Engineer Intern",
+      "dates": "May 2023 -- Jun 2023",
+      "company": "Mactores Innovation",
+      "bulletGroups": [
+        {
+          "id": "cicd-intern",
+          "heading": "High-Availability CI/CD Pipeline in AWS",
+          "bullets": [
+            "Implemented a resilient CI/CD pipeline using AWS CodePipeline, CodeBuild, and GitHub Actions, ensuring 99.95% uptime."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "DevOps Intern",
+      "dates": "May 2022 -- May 2023",
+      "company": "Motorola Solutions",
+      "bulletGroups": [
+        {
+          "id": "elk-intern",
+          "heading": "Scalable Logging and Monitoring with ELK Stack",
+          "bullets": [
+            "Built centralized logging and monitoring system using ELK Stack and Docker, improving observability and debugging efficiency."
+          ]
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "heading": "Other Projects",
+      "link": { "label": "Github", "url": "https://github.com/KelviManavadaria-17" },
+      "bullets": [
+        "Configured a CI/CD pipeline integrating Jenkins, GitHub Actions, and Argo CD for automated Kubernetes deployments."
+      ]
+    }
+  ],
+  "blogs": { "label": "Blogs", "link": { "label": "Medium", "url": "https://medium.com/@KelviManavadaria" } },
+  "education": {
+    "degree": "B. Tech in Computer Engineering",
+    "dates": "2020 -- 2024",
+    "school": "Charotar University of Science and Technology",
+    "detail": "GPA: 9.55"
+  },
+  "certifications": [
+    "AWS: Solutions Architect – Associate (Expired Jun 2026) | SysOps Administrator – Associate (Valid thru Apr 2027) | Cloud Practitioner (Valid thru Apr 2027)",
+    "Certified Kubernetes Administrator (CKA) — Valid thru Nov 2026",
+    "Multi-Cloud: Google Cloud Digital Leader (Valid thru Feb 2027) | Microsoft Certified: Azure Fundamentals (Issued Dec 2022)",
+    "HashiCorp Certified: Terraform Associate (003) (Expired Oct 2025)",
+    "Additional Certifications (incl. AWS Partner: Sales & Technical Accredited): https://www.credly.com/users/kelvi-manavadaria"
+  ]
+}

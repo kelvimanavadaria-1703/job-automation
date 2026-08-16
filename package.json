@@ -10,6 +10,7 @@
     "scheduler": "node scripts/scheduler.mjs"
   },
   "dependencies": {
+    "pdfkit": "^0.19.1",
     "puppeteer": "^23.0.0"
   }
 }

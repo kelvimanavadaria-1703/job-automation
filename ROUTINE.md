@@ -18,10 +18,13 @@ Runs **every hour**, on the :26 minute mark (`26 * * * *` UTC).
 
 1. **Fetch source files fresh from GitHub** (`kelvimanavadaria-1703/job-automation`,
    public repo) — the cloud sandbox has no persistent checkout, so `profile.json`,
-   `data/companies.json`, `scripts/scan.mjs`, the adapters, and
-   `resume/master-resume.tex` are pulled via `curl` at the start of every run.
-   Editing these files in the repo (and pushing to `main`) is how you change
-   the routine's behavior without touching the routine prompt itself.
+   `data/companies.json`, `scripts/scan.mjs`, the adapters,
+   `resume/resume-content.json`, and `scripts/render_resume_pdf.mjs` are
+   pulled via `curl` at the start of every run, plus `npm install pdfkit`
+   (pure JS, ~20 small packages, installs in seconds — no Chromium/LaTeX
+   binary to fetch). Editing these files in the repo (and pushing to `main`)
+   is how you change the routine's behavior without touching the routine
+   prompt itself.
 2. **Scan Tier-A boards** (`node scripts/scan.mjs --maxAgeHours 2 --linkedinMaxAgeHours 24 --verify`) —
    ~40 companies with real ATS APIs (Greenhouse, Lever, Workday, Oracle ORC),
    filtered to postings ≤2h old (tight window is safe at hourly cadence).
@@ -39,21 +42,47 @@ Runs **every hour**, on the :26 minute mark (`26 * * * *` UTC).
    turned out to be scope-restricted; Drive is the durable state this routine
    actually has) and drops anything already reported. This is what prevents
    LinkedIn's wider 24h window from re-reporting the same posting every hour.
-5. **Tailor a resume per new match** — starts from the exact byte content of
-   the downloaded `resume/master-resume.tex`, then makes only targeted edits
-   (reorder Skills lines, swap which work-experience bullet-block leads,
-   reword the Summary) rather than retyping the LaTeX from scratch. Self-checks
-   brace/environment balance before finishing. Never invents employers, dates,
-   or metrics.
+5. **Tailor a resume per new match** — no LaTeX involved at all. The agent
+   writes a small `tailor.json` overlay (JD-mirrored Summary text, which
+   Skills categories should lead, which work-experience bullet-block leads)
+   and runs `node scripts/render_resume_pdf.mjs --content resume/resume-content.json
+   --tailor tailor.json --out Company-Role.pdf`, which renders a real PDF
+   directly — no compiler, no markup an LLM could get syntactically wrong.
+   Every factual claim (dates, employers, metrics) lives only in
+   `resume-content.json` and is never touched by tailoring. The renderer
+   auto-picks the largest font/margin config (from 10.5pt down to 9pt) that
+   still fits everything on one page; if even the tightest config doesn't
+   fit, it lets the resume spill onto a second page rather than clip content
+   or shrink past legibility — one page is preferred, not mandatory.
 6. **Send an email** via Gmail to kelvimanavadaria@gmail.com **only if this
    run found ≥1 new match.** No heartbeat — at hourly cadence a per-run
    "0 new matches" email would be constant noise. The tailored resume(s) go
-   out as real `.tex` file attachments (mimeType `application/x-tex`) — the
-   LaTeX source is never pasted into the email body. If `pdflatex` happens to
-   be available and compiles cleanly, the PDF is attached too, but as of
-   2026-08 the sandbox doesn't have a LaTeX install, so `.tex` + an "open in
-   Overleaf" note is the normal path, not a fallback for rare failures.
+   out as real PDF attachments (mimeType `application/pdf`) — ready to
+   upload to an application form as-is, no manual compile step for Kelvi.
 7. **Update `job-hunt-seen-urls.json`** in Drive with the newly-reported URLs.
+
+## Why PDF generation moved off LaTeX (2026-08-16)
+
+The routine used to have the agent write a full LaTeX `.tex` document from
+scratch each run and try `pdflatex`. In practice the cloud sandbox never had
+a LaTeX install, so every run fell back to pasting raw LaTeX source into the
+email body — exactly the "sometimes throws an error" / "why is there LaTeX
+in my email" problem this was meant to solve, just at 100% frequency instead
+of occasionally.
+
+The replacement (`scripts/render_resume_pdf.mjs`, using `pdfkit`) sidesteps
+both problems at once:
+- **No compiler needed.** `pdfkit` is pure JavaScript — `npm install` is the
+  only setup step, and it's small enough to be fast every single hourly run.
+- **More ATS-safe, not less.** The old LaTeX template's icon font and
+  tabularx-based layout are exactly the kind of thing ATS parsers mis-read.
+  The renderer produces a plain single-column, real-text (not image), no-table,
+  no-icon PDF with standard section headers — the format ATS guides actually
+  recommend.
+- **Tailoring can't introduce syntax errors.** The agent only ever produces a
+  small JSON overlay (reorder these categories, lead with this bullet group,
+  use this Summary wording) — it never retypes structural markup, so there's
+  nothing to get wrong the way a hand-written `\begin{itemize}` could be.
 
 ## Known limitations (by design, not bugs)
 
@@ -64,9 +93,10 @@ Runs **every hour**, on the :26 minute mark (`26 * * * *` UTC).
 - **No heartbeat means silence is the normal case.**
 - **Nothing is auto-applied.** This pipeline searches, matches, tailors, and
   reports only. Every application is still a manual, deliberate choice.
-- **No local LaTeX compiler in the sandbox.** Tailored resumes go out as
-  `.tex` attachments, not PDFs, unless a future sandbox image happens to ship
-  `pdflatex`. Overleaf (paste-and-compile, no install) is the intended path.
+- **One page is preferred, not guaranteed.** The renderer tries four size
+  configs before giving up and spilling onto a second page — for the current
+  resume content this hasn't been needed, but a much longer future JD-driven
+  tailoring change could in principle push it past one page.
 
 ## Maintenance
 
