@@ -19,6 +19,13 @@ async function resolveIndiaLocationId (company) {
   if (company.indiaLocationId) return company.indiaLocationId
   const url = `https://${company.orcHost}/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&finder=findReqs;siteNumber=${company.siteNumber},facetsList=LOCATIONS`
   const d = await fetchJson(url)
+  // Oracle only returns the top ~10 locationsFacet entries by TotalCount, not
+  // every location with openings — for a tenant where India isn't among its
+  // globally largest office locations (e.g. Dell: India buried below the
+  // US/Taiwan/Singapore sites in the facet ranking), "India" never appears
+  // here even though India postings exist. Null is a legitimate "not in the
+  // top facets" result, not an error — fetchJobs falls back to unfiltered
+  // pagination when this happens.
   const facets = d.items?.[0]?.locationsFacet ?? []
   const india = facets.find(f => f.Name === 'India')
   return india?.Id ?? null
@@ -28,12 +35,15 @@ export default async function fetchJobs (company) {
   if (!company.orcHost || !company.siteNumber) throw new Error('missing orcHost/siteNumber')
 
   const indiaId = await resolveIndiaLocationId(company)
-  if (!indiaId) throw new Error('could not resolve India locationsFacet Id')
+  // No location filter when India isn't a resolvable facet — fetch all pages
+  // instead and let scan.mjs's own India/Remote regex filter by PrimaryLocation,
+  // same as every other adapter already does. Bounded by the same MAX_PAGES cap.
+  const locationParam = indiaId ? `,selectedLocationsFacet=${indiaId}` : ''
 
   const out = []
   for (let page = 0; page < MAX_PAGES; page++) {
     const offset = page * PAGE_SIZE
-    const url = `https://${company.orcHost}/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList&finder=findReqs;siteNumber=${company.siteNumber},facetsList=LOCATIONS,limit=${PAGE_SIZE},offset=${offset},selectedLocationsFacet=${indiaId}`
+    const url = `https://${company.orcHost}/hcmRestApi/resources/latest/recruitingCEJobRequisitions?onlyData=true&expand=requisitionList&finder=findReqs;siteNumber=${company.siteNumber},facetsList=LOCATIONS,limit=${PAGE_SIZE},offset=${offset}${locationParam}`
     const d = await fetchJson(url)
     const wrapper = d.items?.[0]
     const reqs = wrapper?.requisitionList ?? []
