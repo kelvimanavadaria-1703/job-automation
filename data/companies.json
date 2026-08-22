@@ -2246,6 +2246,358 @@
       ],
       "careersUrl": "",
       "notes": "Southeast Asian super-app, some India engineering ties via GoTo/Tokopedia network. No public ATS API found. Added 2026-08-10."
+    },
+    {
+      "name": "Automattic (WordPress.com)",
+      "sector": "remote-first-global",
+      "tier": ["B"],
+      "priority": "medium",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://automattic.com/work-with-us/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. 2,000+ employees across 90+ countries, zero physical offices — fully distributed by design since founding (WordPress.com/WooCommerce/Tumblr). No Greenhouse/Lever slug found (tried 'automattic') — custom in-house hiring system, WebFetch/WebSearch only."
+    },
+    {
+      "name": "Zapier",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "high",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://zapier.com/jobs",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list, which flags India-based roles as actively listed across engineering/support/sales. No Greenhouse/Lever slug found (tried 'zapier', 'zapierinc') — custom careers site, WebSearch/WebFetch only."
+    },
+    {
+      "name": "Doist (Todoist / Twist)",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "medium",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://doist.com/careers",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Small fully-remote productivity-app maker (Todoist, Twist). No Greenhouse/Lever slug found — custom careers page, WebSearch/WebFetch only."
+    },
+    {
+      "name": "Toptal",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "medium",
+      "provider": "lever",
+      "slug": "toptal",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Lever endpoint, 22 open postings at test time. Not a normal employer: freelance talent marketplace with a rigorous multi-stage screening process (~top 3% acceptance), project/hourly-rate engagements (~$30-100/hr) rather than a salaried role — treat 'applying' as entering the vetting pipeline, not a single JD."
+    },
+    {
+      "name": "Canonical (Ubuntu / Linux)",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "high",
+      "provider": "greenhouse",
+      "slug": "canonical",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint, 303 open postings, 7 explicitly DevOps/SRE/Platform-titled ('Senior Site Reliability Engineer', 'Senior Site Reliability / Gitops Engineer', 'Cloud Engineering Manager'), all home-based/worldwide. Remote-first since inception, one of the largest all-remote tech employers globally — strong fit."
+    },
+    {
+      "name": "Elastic (Elasticsearch)",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "medium",
+      "provider": "greenhouse",
+      "slug": "elastic",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint, 249 open postings; 'Platform Engineer - Kubernetes' role found but tagged United States-only at test time — most infra roles skew US/EMEA, re-check location eligibility per req before tailoring."
+    },
+    {
+      "name": "Kraken (Crypto Exchange)",
+      "sector": "remote-first-global",
+      "tier": ["B"],
+      "priority": "medium",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://www.kraken.com/careers",
+      "notes": "Added 2026-08-22. CAUTION: a Lever slug 'kraken' resolves (HTTP 200) but returned 0 postings at test time — likely moved off Lever or account paused, not a reliable Tier-A signal. Use careers page/WebSearch instead. One of the earliest fully-distributed crypto companies, 'work from anywhere' policy."
+    },
+    {
+      "name": "Help Scout",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://www.helpscout.com/careers/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Small, selective fully-remote help-desk SaaS company — infrequent openings. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "Basecamp / 37signals",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://37signals.com/jobs",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list, which itself flags this as a very small, highly selective team with infrequent openings. No Greenhouse/Lever slug found — deprioritize, poll occasionally."
+    },
+    {
+      "name": "DuckDuckGo",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://duckduckgo.com/hiring",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Privacy-focused search engine, small fully-distributed team. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "Mozilla",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "medium",
+      "provider": "greenhouse",
+      "slug": "mozilla",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint, 82 open postings including 'Senior Software Engineer, Cloud Engineering' (Remote Canada). Non-profit tech foundation, remote eligibility varies by team/role — verify India eligibility per req."
+    },
+    {
+      "name": "Binance",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "high",
+      "provider": "lever",
+      "slug": "binance",
+      "locations": ["Remote-Worldwide", "Remote-India", "Asia"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Lever endpoint, 276 open postings, 2 DevOps/Infra-titled at test time ('DevOps Engineer (AI)' Hong Kong, 'Senior Infrastructure Engineer — Bare-Metal Kubernetes' Asia). Large-scale global remote-first hiring across engineering/ops — note the scan automation's location filter only matches 'India'/'remote' text, not 'Asia'/'Hong Kong', so check this board manually too."
+    },
+    {
+      "name": "Deel",
+      "sector": "remote-first-global",
+      "tier": ["B"],
+      "priority": "medium",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://www.deel.com/careers",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Global payroll/EOR platform — remote is literally their product. No Greenhouse/Lever slug found (tried 'deel', 'deelinc', 'deel1')."
+    },
+    {
+      "name": "Remote.com",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "medium",
+      "provider": "greenhouse",
+      "slug": "remotecom",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint (slug 'remotecom', not the generic 'remote' which resolves to an unrelated 2-job board — do not confuse the two), 223 open postings including 'Senior Site Reliability Engineer' (Remote-EMEA). Deel competitor, fully distributed EOR/payroll platform."
+    },
+    {
+      "name": "Multiplier",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://www.usemultiplier.com/careers",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list, which cites a ₹8-25L band — at/below the 25 LPA target, deprioritize unless a specific req proves otherwise. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "Turing",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "medium",
+      "provider": "greenhouse",
+      "slug": "turing",
+      "locations": ["Remote-India", "Remote-Worldwide"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint, 23 open postings (0 DevOps/SRE-titled internal roles at test time — Turing itself is a talent-matching platform, not the end employer). Matches India-based developers directly with US remote engineering teams; the real opportunity is being matched to a client req, not a Turing-internal JD."
+    },
+    {
+      "name": "X-Team",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://x-team.com/join",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Remote developer community placing devs with global gaming/tech clients, hourly-rate engagements. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "Terminal",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "medium",
+      "locations": ["Remote-India"],
+      "careersUrl": "https://terminal.io",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Builds dedicated remote engineering pods in India specifically for US startups — good geographic fit. No Greenhouse/Lever slug found ('terminal' is too generic a slug to trust a hit on anyway)."
+    },
+    {
+      "name": "Andela",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://andela.com/careers/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list, which cites an hourly-based ₹18-50L band. No Greenhouse/Lever slug found (tried 'andela', 'andelaco', 'andelainc') — global talent network, no clean public JSON API."
+    },
+    {
+      "name": "Articulate (Rise / Storyline)",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "low",
+      "provider": "lever",
+      "slug": "articulate",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Lever endpoint but only 1 open posting at test time — very thin volume despite a real endpoint. Fully distributed e-learning SaaS company. Keep in registry (free to poll) but don't expect frequent matches."
+    },
+    {
+      "name": "Toggl (Track / Hire / Plan)",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "medium",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://toggl.com/jobs/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Fully remote productivity-tools company. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "WP Engine",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "medium",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://wpengine.com/careers/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Managed WordPress hosting company, remote-friendly. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "Aha! (Product Roadmap Software)",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "low",
+      "provider": "greenhouse",
+      "slug": "aha",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint but only 1 open posting at test time — bootstrapped/highly profitable but very low hiring volume. Keep in registry (free to poll) but don't expect frequent matches."
+    },
+    {
+      "name": "Close (CRM)",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "medium",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://close.com/careers/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Fully distributed CRM/sales-engagement SaaS, no physical offices. No Greenhouse/Lever slug found (tried 'close', 'closeio')."
+    },
+    {
+      "name": "GitHub (Microsoft)",
+      "sector": "remote-first-global",
+      "tier": ["B"],
+      "priority": "high",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://github.careers",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Distinct entry from 'Microsoft (India)' already in this registry — GitHub runs its own remote-first engineering culture within Microsoft, worth tracking separately. No Greenhouse/Lever slug found — hiring flows through Microsoft's own careers system."
+    },
+    {
+      "name": "Stripe",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "high",
+      "provider": "greenhouse",
+      "slug": "stripe",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint, 575 open postings, including 'Infrastructure Engineer, Privy' (New York) at test time. Remote hiring limited to select roles/locations per user-supplied list — verify India eligibility per req, but comp ceiling (₹50L-1.2Cr equiv) makes this worth polling."
+    },
+    {
+      "name": "Shopify",
+      "sector": "remote-first-global",
+      "tier": ["B"],
+      "priority": "high",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://www.shopify.com/careers",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Company-wide remote-first policy ('Digital by Design') since 2020. No Greenhouse/Lever slug found (tried 'shopify', 'shopifyinc') — custom in-house ATS."
+    },
+    {
+      "name": "Webflow",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "medium",
+      "provider": "greenhouse",
+      "slug": "webflow",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint, 28 open postings, 3 DevOps/Infra-titled at test time ('Staff DevOps Engineer, Delivery Loop' and 'Senior Infrastructure Engineer', both Argentina Remote; 'Associate Infrastructure Engineer', CA/US Remote) — remote roles currently region-locked to specific countries, verify India eligibility per req. Remote-first no-code SaaS company."
+    },
+    {
+      "name": "Twilio",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "medium",
+      "provider": "greenhouse",
+      "slug": "twilio",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint, 146 open postings, 3 DevOps/Platform-titled at test time ('DevOps Engineer (Observability)' Remote-Ireland; two Platform Engineering roles Remote-US) — verify India eligibility per req. Communications API platform, also has an INR-payroll India entity per user-supplied list."
+    },
+    {
+      "name": "Zoho Corporation",
+      "sector": "remote-first-global",
+      "tier": ["B"],
+      "priority": "low",
+      "locations": ["Remote-India"],
+      "careersUrl": "https://www.zoho.com/careers/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list, which cites a ₹4-14L band — well below the 25 LPA target, deprioritize unless a senior/specialist req proves otherwise. Bootstrapped SaaS major, famously self-hosts its own tooling including recruiting — no Greenhouse/Lever/Workday slug found, expected."
+    },
+    {
+      "name": "upGrad",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-India"],
+      "careersUrl": "https://www.upgrad.com/careers/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list, which cites a ₹4-14L band — well below the 25 LPA target, deprioritize. Edtech major with many fully-WFH roles across content/sales/support, DevOps-specific volume likely thin. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "Semrush",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "medium",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://www.semrush.com/company/careers/",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. Global SaaS marketing-analytics company hiring India-based remote talent. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "Hotjar (part of Contentsquare)",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "medium",
+      "provider": "lever",
+      "slug": "contentsquare",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Lever endpoint under the parent 'contentsquare' slug (Hotjar's original team was built 100% remote from day one, now merged into Contentsquare), 24 open postings, 0 DevOps/SRE-titled at test time — poll for Platform/Infra roles under the combined org."
+    },
+    {
+      "name": "InVision",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://www.invisionapp.com/careers",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list. CAUTION: company has undergone major strategic pivots/downsizing in recent years (shifted focus to InVision Studio) — verify current hiring activity before investing time, hiring volume may be very thin or dormant. No Greenhouse/Lever slug found."
+    },
+    {
+      "name": "Buffer",
+      "sector": "remote-first-global",
+      "tier": ["C"],
+      "priority": "low",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "careersUrl": "https://buffer.com/journey",
+      "notes": "Added 2026-08-22 from user-supplied remote-employer list, which itself flags this as a small team (~80) with infrequent but high-quality openings. No Greenhouse/Lever slug found — deprioritize, poll occasionally."
+    },
+    {
+      "name": "Figma",
+      "sector": "remote-first-global",
+      "tier": ["A"],
+      "priority": "high",
+      "provider": "greenhouse",
+      "slug": "figma",
+      "locations": ["Remote-Worldwide", "Remote-India"],
+      "lastVerified": "2026-08-22",
+      "notes": "Added 2026-08-22 — confirmed live Greenhouse endpoint, 161 open postings, 0 DevOps/SRE/Platform-titled at test time — but comp ceiling (₹60L-1.2Cr equiv per user-supplied list) and free-to-poll endpoint make this worth keeping in Tier A; check back periodically for infra reqs."
     }
   ]
 }
