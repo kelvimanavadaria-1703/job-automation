@@ -7,17 +7,17 @@
     "github": { "label": "github.com/KelviManavadaria-17", "url": "https://github.com/KelviManavadaria-17" },
     "linkedin": { "label": "linkedin.com/in/kelvi-manavadaria", "url": "https://www.linkedin.com/in/kelvi-manavadaria/" }
   },
-  "summary": "DevOps/SRE Engineer with 2+ years of experience building scalable and highly available systems on AWS and Azure. Skilled in Kubernetes, CI/CD, and infrastructure as code. Focused on observability and automation.",
+  "summary": "DevOps / SRE / Platform Engineer with 2+ years of experience building scalable and highly available systems on AWS and Azure. Skilled in Kubernetes, CI/CD, infrastructure as code, and cloud IAM/security. Focused on observability and automation.",
   "skills": [
-    { "category": "Cloud", "items": "AWS (EC2, ECR, Lambda, Glue, Athena, API Gateway, Cognito, EventBridge, CloudTrail), Azure (Azure Monitor)" },
-    { "category": "CI/CD & GitOps", "items": "Jenkins, ArgoCD, GitHub Actions, AWS CodePipeline, AWS CodeBuild, GitOps" },
+    { "category": "Cloud", "items": "AWS (EC2, ECR, IAM, RDS, DynamoDB, Lambda, Glue, Athena, API Gateway, Cognito, EventBridge, CloudTrail), Azure (Azure Monitor)" },
+    { "category": "CI/CD & GitOps", "items": "Jenkins, GitLab CI, ArgoCD, GitHub Actions, AWS CodePipeline, AWS CodeBuild, GitOps" },
     { "category": "Containerization & Orchestration", "items": "Kubernetes, Docker, Helm" },
-    { "category": "Infrastructure as Code (IaC)", "items": "Terraform, Ansible" },
+    { "category": "Infrastructure as Code (IaC) & Configuration Management", "items": "Terraform, Ansible" },
     { "category": "Observability", "items": "Prometheus, Grafana, New Relic, CloudWatch, Elasticsearch (ELK Stack)" },
     { "category": "SRE Practices", "items": "SLA/SLO/SLI, Error Budgets, Incident Management, Root Cause Analysis (RCA), 24x7 On-Call, MTTR Reduction" },
     { "category": "Systems", "items": "Linux, Networking, Distributed Systems" },
     { "category": "Architecture", "items": "Microservices, High Availability, Fault Tolerance, Disaster Recovery" },
-    { "category": "Languages & Scripting", "items": "Python, Java, Bash" }
+    { "category": "Languages, Scripting & Delivery", "items": "Python, Java, Bash, Agile/Scrum" }
   ],
   "experience": [
     {

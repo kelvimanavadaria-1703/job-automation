@@ -20,14 +20,15 @@
   },
   "skills": {
     "cloud": ["AWS", "Azure"],
-    "awsServices": ["EC2", "ECR", "Lambda", "Glue", "Athena", "API Gateway", "Cognito", "EventBridge", "CloudTrail", "CodePipeline", "CodeBuild"],
+    "awsServices": ["EC2", "ECR", "IAM", "RDS", "DynamoDB", "Lambda", "Glue", "Athena", "API Gateway", "Cognito", "EventBridge", "CloudTrail", "CodePipeline", "CodeBuild"],
     "azureServices": ["Azure Monitor"],
-    "cicd": ["Jenkins", "ArgoCD", "GitHub Actions", "AWS CodePipeline", "AWS CodeBuild", "GitOps"],
+    "cicd": ["Jenkins", "GitLab CI", "ArgoCD", "GitHub Actions", "AWS CodePipeline", "AWS CodeBuild", "GitOps"],
     "containers": ["Kubernetes", "Docker", "Helm"],
-    "iac": ["Terraform", "Ansible"],
+    "iac": ["Terraform", "Ansible", "Configuration Management"],
     "observability": ["Prometheus", "Grafana", "New Relic", "CloudWatch", "Elasticsearch/ELK Stack", "EventBridge", "CloudTrail"],
     "systems": ["Linux", "Networking", "Distributed Systems", "Microservices", "High Availability", "Fault Tolerance", "Disaster Recovery"],
     "languages": ["Python", "Java", "Bash"],
+    "methodologies": ["Agile/Scrum"],
     "sreePractices": ["24x7 on-call", "Incident management", "Root cause analysis (RCA)", "SLA/SLO/SLI", "Error budgets", "MTTR reduction"],
     "note": "Google Cloud Digital Leader is a foundational/non-technical certification (no hands-on GCP claimed) — do not tailor a resume to imply hands-on GCP engineering experience on its basis alone."
   },

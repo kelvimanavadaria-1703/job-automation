@@ -46,10 +46,12 @@ Default answer: "Company careers page" (adjust if the source is actually differe
 
 ## Skills (for free-text "summarize your skills" fields — full detail in profile.json/resume)
 
-Cloud: AWS, Azure · Containers: Kubernetes, Docker, Helm · IaC: Terraform, Ansible ·
-CI/CD: Jenkins, ArgoCD, GitHub Actions, AWS CodePipeline/CodeBuild, GitOps ·
+Cloud: AWS (incl. IAM, RDS, DynamoDB), Azure · Containers: Kubernetes, Docker, Helm ·
+IaC & Configuration Management: Terraform, Ansible ·
+CI/CD: Jenkins, GitLab CI, ArgoCD, GitHub Actions, AWS CodePipeline/CodeBuild, GitOps ·
 Observability: Prometheus, Grafana, New Relic, CloudWatch, ELK Stack ·
-Languages: Python, Java, Bash · SRE practices: 24x7 on-call, incident management, RCA, SLA/SLO/SLI, error budgets, MTTR reduction
+Languages: Python, Java, Bash · Methodologies: Agile/Scrum ·
+SRE practices: 24x7 on-call, incident management, RCA, SLA/SLO/SLI, error budgets, MTTR reduction
 
 ## Certifications
 
