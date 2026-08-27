@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Scans every tier-A (verified public ATS) company in data/companies.json for
-// DevOps/SRE/Platform/Cloud roles matching profile.json, and writes
-// data/jobs.raw.json for the routine to read.
+// DevOps/SRE/Platform/Cloud/Forward-Deployed roles matching profile.json, and
+// writes data/jobs.raw.json for the routine to read.
 //
 //   node scripts/scan.mjs                    # all verified tier-A boards
 //   node scripts/scan.mjs --maxAgeHours 24   # only postings <= N hours old
@@ -18,7 +18,7 @@ import { dirname, join } from 'node:path'
 const here = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(here, '..')
 
-const ROLE = /\b(devops|site reliability|\bsre\b|platform engineer|cloud engineer|cloud infrastructure|infrastructure engineer|systems reliability)\b/i
+const ROLE = /\b(devops|site reliability|\bsre\b|platform engineer|cloud engineer|cloud infrastructure|infrastructure engineer|systems reliability|forward[\s-]deployed)\b/i
 const INDIA = /(india|bengaluru|bangalore|pune|hyderabad|gurgaon|gurugram|noida|mumbai|chennai|delhi|powai)/i
 const REMOTE = /remote|anywhere|distributed|work from home|worldwide/i
 
@@ -144,8 +144,8 @@ if (!noLinkedin) {
   console.error('Searching LinkedIn (guest, no login)…')
   const linkedinAgeHours = linkedinMaxAgeHours
   const queries = [
-    { keywords: 'devops engineer OR site reliability engineer OR platform engineer OR cloud engineer OR infrastructure engineer', location: 'India' },
-    { keywords: 'devops engineer OR site reliability engineer OR platform engineer', location: 'Remote' },
+    { keywords: 'devops engineer OR site reliability engineer OR platform engineer OR cloud engineer OR infrastructure engineer OR forward deployed engineer', location: 'India' },
+    { keywords: 'devops engineer OR site reliability engineer OR platform engineer OR forward deployed engineer', location: 'Remote' },
   ]
   for (const q of queries) {
     try {
@@ -244,7 +244,7 @@ if (notify) {
   }
 }
 
-console.log(`${matches.length} DevOps/SRE/Platform/Cloud roles matched (tier-A boards + LinkedIn)\n`)
+console.log(`${matches.length} DevOps/SRE/Platform/Cloud/Forward-Deployed roles matched (tier-A boards + LinkedIn)\n`)
 for (const m of matches) {
   const age = m.ageHours === null ? 'age unknown' : `${m.ageHours}h old`
   console.log(`  [${m.priority.padEnd(6)}] ${m.company} — ${m.title}`)

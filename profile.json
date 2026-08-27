@@ -9,10 +9,11 @@
     "experienceNote": "Full-time DevOps/SRE since Dec 2023, plus two prior cloud/DevOps internships (Motorola Solutions, Mactores Innovation) back to May 2022."
   },
   "target": {
-    "roles": ["DevOps Engineer", "Site Reliability Engineer", "SRE", "Platform Engineer", "Cloud Engineer", "Infrastructure Engineer", "Cloud Infrastructure Engineer", "Systems Reliability Engineer"],
-    "excludeRoles": ["Software Engineer (generic, no infra/platform scope)", "Data Engineer", "QA/Test Engineer", "Security Engineer (unless explicitly DevSecOps/platform-security hybrid)"],
+    "roles": ["DevOps Engineer", "Site Reliability Engineer", "SRE", "Platform Engineer", "Cloud Engineer", "Infrastructure Engineer", "Cloud Infrastructure Engineer", "Systems Reliability Engineer", "Forward Deployed Engineer", "Forward Deployed SRE"],
+    "excludeRoles": ["Software Engineer (generic, no infra/platform scope)", "Data Engineer", "QA/Test Engineer", "Security Engineer (unless explicitly DevSecOps/platform-security hybrid)", "Forward Deployed Engineer (generic customer-facing app/solutions dev with no infra, deployment-ops, or reliability scope)"],
     "acceptableYearsRange": [1, 5],
     "seniorityNote": "BFSI titles like AVP/VP/Assistant Vice President often map to mid-level IC roles, not literal seniority as in tech companies. Judge fit by the JD's actual years-of-experience ask, not the title. Only reject on title if it is explicitly a people-management/Director+/Head-of role.",
+    "forwardDeployedNote": "\"Forward Deployed Engineer\" titles span a wide range — from infra/SRE-flavored (on-site deployment, environment ops, platform reliability at client infra, incident response) to purely customer-facing app/solutions development with no infra scope. The scan's title match (scripts/scan.mjs ROLE regex) catches the phrase 'forward deployed' broadly; judge actual fit from the JD body (deployment, on-call, infra, Kubernetes, cloud, reliability keywords = good sign) rather than the title alone.",
     "sector": "BFSI (banking, NBFC, insurance, fintech, payments, core-banking vendors)",
     "locationPreference": ["Bengaluru", "Pune", "Gurugram", "Mumbai", "Hyderabad", "Chennai", "Remote-India", "Remote-Worldwide"],
     "targetSalaryLPA": 25,

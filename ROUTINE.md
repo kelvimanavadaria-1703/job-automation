@@ -45,6 +45,15 @@ run. See step 3 below for exactly how the split works.
    pass (filters expired/removed postings) skips LinkedIn URLs specifically —
    a generic-UA fetch against linkedin.com is likely to get bot-blocked and
    wrongly mark live postings as stale.
+
+   **Role match (2026-08-28):** `scripts/scan.mjs`'s `ROLE` regex and the
+   LinkedIn query keywords now also match "Forward Deployed" titles (Forward
+   Deployed Engineer, Forward Deployed SRE), alongside DevOps/SRE/Platform/
+   Cloud/Infrastructure. Title matching stays deliberately broad — the actual
+   infra/SRE-vs-generic-app-dev judgment for FDE postings happens downstream,
+   using `profile.json`'s `forwardDeployedNote`, since "Forward Deployed
+   Engineer" spans everything from infra/reliability-heavy roles to pure
+   customer-facing app dev with no infra scope at all.
 3. **Check ~half of Tier-B/C companies per run** (~50-51/run via WebFetch)
    — no public ATS, so their careers pages get checked directly. The
    (priority-sorted) B/C registry is interleaved by list-index parity: even

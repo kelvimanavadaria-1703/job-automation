@@ -23,7 +23,7 @@ from the current `.tex` before uploading it anywhere.
 
 - Current role: DevOps Engineer (outsourced as Platform Engineer at Thomson Reuters, via Intuitive.Cloud)
 - Total experience: 2.5 years full-time DevOps/SRE (since Dec 2023), plus two prior cloud/DevOps internships (Motorola Solutions, Mactores Innovation) back to May 2022
-- Target roles: DevOps Engineer, Site Reliability Engineer, SRE, Platform Engineer, Cloud Engineer, Infrastructure Engineer, Cloud Infrastructure Engineer, Systems Reliability Engineer
+- Target roles: DevOps Engineer, Site Reliability Engineer, SRE, Platform Engineer, Cloud Engineer, Infrastructure Engineer, Cloud Infrastructure Engineer, Systems Reliability Engineer, Forward Deployed Engineer, Forward Deployed SRE
 - Target sector: BFSI (banking, NBFC, insurance, fintech, payments, core-banking vendors)
 - Preferred locations: Bengaluru, Pune, Gurugram, Mumbai, Hyderabad, Chennai, or Remote (India/Worldwide)
 - Willing to relocate: yes
