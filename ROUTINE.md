@@ -1,4 +1,4 @@
-# DevOps/SRE/Platform BFSI Job-Hunt Routine — 2x/day, full daily coverage
+# DevOps/SRE/Platform BFSI Job-Hunt Routine — 3x/day, full daily coverage
 
 This file is the human-readable record of what the scheduled cloud agent does.
 The routine itself is configured via Claude Code's `/schedule` (RemoteTrigger
@@ -8,37 +8,41 @@ edits to the prompt.
 **Note:** there's an older, unrelated 4x/day routine kept around, disabled,
 as `DevOps-SRE-BFSI-JobHunt` — superseded, no action needed unless you want
 it deleted via https://claude.ai/code/routines. The active routine is
-`BFSI DevOps/SRE Job Hunt (2x/day, full daily coverage)`.
+`BFSI DevOps/SRE Job Hunt (3x/day, full daily coverage)`.
 
 ## Schedule
 
-Runs **2x/day**, on the :26 minute mark, at UTC hours 2/14
-(`26 2,14 * * *`) — roughly 7:56am / 7:56pm IST.
+Runs **3x/day**, on the :30 minute mark, at UTC hours 3/7/13
+(`30 3,7,13 * * *`) — 9:00am / 1:00pm / 7:00pm IST.
 
-History (all 2026-08-17, same day): hourly → 4x/day + full-101-company scan
-(briefly, never actually fired) → 2x/day + rotating-slice scan (~15/run,
-full registry every ~3.5 days) → **2x/day + full-101-company coverage split
-across the day's 2 runs** (current), after Kelvi clarified he wanted full
-Tier-B/C coverage every single day, not spread across the week, while still
-bounding cost via 2x/day frequency and splitting the 101 companies roughly
-in half between the two daily runs rather than fetching all of them in one
-run. See step 3 below for exactly how the split works.
+History: hourly → 4x/day + full-101-company scan (briefly, never actually
+fired) → 2x/day + rotating-slice scan (~15/run, full registry every ~3.5
+days) → 2x/day + full-101-company coverage split across the day's 2 runs
+(all 2026-08-17, same day) → **3x/day + full-101-company coverage split
+across the day's 3 runs** (current, 2026-08-28), after Kelvi asked for a
+3rd daily run and better-spread times. The 3 times were chosen to stay
+within Kelvi's waking/working hours (rather than spread evenly across a
+full 24h, which would push a run into the middle of the night) with roughly
+even gaps between them (9am→1pm = 4h, 1pm→7pm = 6h). See step 3 below for
+exactly how the Tier-B/C split works across 3 runs.
 
 ## What each run does
 
 1. **Fetch source files fresh from GitHub** (`kelvimanavadaria-1703/job-automation`,
    public repo) — the cloud sandbox has no persistent checkout, so `profile.json`,
-   `data/companies.json`, `scripts/scan.mjs`, the adapters,
-   `resume/resume-content.json`, and `scripts/render_resume_pdf.mjs` are
-   pulled via `curl` at the start of every run, plus `npm install pdfkit`
-   (pure JS, ~20 small packages, installs in seconds — no Chromium/LaTeX
-   binary to fetch). Editing these files in the repo (and pushing to `main`)
-   is how you change the routine's behavior without touching the routine
-   prompt itself.
+   `data/companies.json`, `scripts/scan.mjs`, and the adapters are pulled via
+   `curl` at the start of every run. (`resume/resume-content.json` and
+   `scripts/render_resume_pdf.mjs` are NOT currently fetched, and `npm install
+   pdfkit` is NOT run — those were dropped from the fetch list on 2026-08-18
+   along with resume tailoring itself, see step 5 below.) Editing these files
+   in the repo (and pushing to `main`) is how you change the routine's
+   behavior without touching the routine prompt itself.
 2. **Scan Tier-A boards** (`node scripts/scan.mjs --maxAgeHours 24 --linkedinMaxAgeHours 24 --verify`) —
    ~40 companies with real ATS APIs (Greenhouse, Lever, Workday, Oracle ORC),
-   filtered to postings ≤24h old (≈2x safety margin over the ~12h gap between
-   runs at this cadence). Same call also runs a login-free LinkedIn guest
+   filtered to postings ≤24h old (a wide safety margin over the ~4-6h gap
+   between runs at this cadence — kept at 24h rather than tightened, since
+   Drive dedup, not a narrow window, is what prevents re-reporting). Same
+   call also runs a login-free LinkedIn guest
    search, with its own 24h lookback — LinkedIn's freshness labels are
    coarse relative buckets ("1 day ago") rather than precise timestamps, so
    its window doesn't need to track the tier-A one. The `--verify` live-fetch
@@ -54,17 +58,19 @@ run. See step 3 below for exactly how the split works.
    using `profile.json`'s `forwardDeployedNote`, since "Forward Deployed
    Engineer" spans everything from infra/reliability-heavy roles to pure
    customer-facing app dev with no infra scope at all.
-3. **Check ~half of Tier-B/C companies per run** (~50-51/run via WebFetch)
+3. **Check ~a third of Tier-B/C companies per run** (~33-34/run via WebFetch)
    — no public ATS, so their careers pages get checked directly. The
-   (priority-sorted) B/C registry is interleaved by list-index parity: even
-   indices go to the UTC-02 run, odd indices go to the UTC-14 run. This
-   keeps a representative mix of high/medium/low priority companies in
-   *both* runs (not all the best ones in one run and all the worst in the
-   other), and means **the full ~101-company registry is covered exactly
-   once every calendar day** — nothing rotates or waits for a future day.
-   Splitting across 2 runs (rather than one 101-company run) keeps any
-   single run's WebFetch volume, and therefore cost, roughly half of what
-   a single-run full scan would be.
+   (priority-sorted) B/C registry is interleaved by list-index mod 3: index
+   i goes to slot 0 (UTC-03 run), 1 (UTC-07 run), or 2 (UTC-13 run) based on
+   `i mod 3`. This keeps a representative mix of high/medium/low priority
+   companies across *all three* runs (not all the best ones in one run and
+   all the worst in another), and means **the full ~101-company registry is
+   covered exactly once every calendar day** — nothing rotates or waits for
+   a future day. Splitting across 3 runs (rather than one 101-company run)
+   keeps any single run's WebFetch volume, and therefore cost, roughly a
+   third of what a single-run full scan would be. Tier-B/C role matching
+   also now includes Forward Deployed Engineer/SRE titles, in sync with the
+   `scan.mjs` ROLE regex (see the Role match note above).
 4. **Merge, then dedup against Google Drive** — searches for
    `job-hunt-seen-urls.json` in Drive (not a Google Sheet — Sheets access
    turned out to be scope-restricted; Drive is the durable state this routine
@@ -115,11 +121,12 @@ both problems at once:
 
 - **Salary is always an estimate.** BFSI JDs almost never publish pay.
 - **Tier-B/C coverage is once/day, not once/run.** Any single company is
-  only checked in whichever of the day's 2 runs its list-index parity lands
-  in — a posting that appears and gets filled within roughly the same day
-  could still be missed, though this is a much smaller gap than the earlier
-  rotating-slice design's ~3.5 days. Tier-A (the ~40 companies with real
-  ATS APIs) has no such gap, since it's cheap enough to scan in full every run.
+  only checked in whichever of the day's 3 runs its `list-index mod 3`
+  lands in — a posting that appears and gets filled within roughly the same
+  day could still be missed, though this is a smaller gap than the earlier
+  2-run split and a much smaller gap than the original rotating-slice
+  design's ~3.5 days. Tier-A (the ~40 companies with real ATS APIs) has no
+  such gap, since it's cheap enough to scan in full every run.
 - **No heartbeat means silence is the normal case.**
 - **Nothing is auto-applied.** This pipeline searches, matches, and reports
   only. Every application is still a manual, deliberate choice.
@@ -138,9 +145,9 @@ both problems at once:
   repo — use `/schedule` (or the RemoteTrigger API directly) to view/edit it.
   This doc should be kept in sync whenever that prompt changes materially.
 - The two independent levers are cadence (`cron_expression`, currently
-  2x/day) and how the Tier-B/C registry is split per run (currently an
-  even/odd interleave across exactly 2 daily runs so coverage completes
-  every day). If budget pressure returns, splitting into more, smaller
-  slots (like the earlier ~15/run rotating design) trades per-run cost for
-  a longer full-coverage cycle — either lever can move without touching
-  the other, no repo file needs to change for either.
+  3x/day) and how the Tier-B/C registry is split per run (currently a
+  `list-index mod 3` interleave across exactly 3 daily runs so coverage
+  completes every day). If budget pressure returns, splitting into more,
+  smaller slots (like the earlier ~15/run rotating design) trades per-run
+  cost for a longer full-coverage cycle — either lever can move without
+  touching the other, no repo file needs to change for either.
