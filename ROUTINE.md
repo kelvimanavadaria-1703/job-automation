@@ -30,13 +30,15 @@ exactly how the Tier-B/C split works across 3 runs.
 
 1. **Fetch source files fresh from GitHub** (`kelvimanavadaria-1703/job-automation`,
    public repo) — the cloud sandbox has no persistent checkout, so `profile.json`,
-   `data/companies.json`, `scripts/scan.mjs`, and the adapters are pulled via
-   `curl` at the start of every run. (`resume/resume-content.json` and
-   `scripts/render_resume_pdf.mjs` are NOT currently fetched, and `npm install
-   pdfkit` is NOT run — those were dropped from the fetch list on 2026-08-18
-   along with resume tailoring itself, see step 5 below.) Editing these files
-   in the repo (and pushing to `main`) is how you change the routine's
-   behavior without touching the routine prompt itself.
+   `data/companies.json`, `scripts/scan.mjs`, the adapters, and (since
+   2026-08-30) `resume/variants/manifest.json` are pulled via `curl` at the
+   start of every run. (`resume/resume-content.json` and
+   `scripts/render_resume_pdf.mjs` are NOT fetched, and `npm install pdfkit`
+   is NOT run — those were dropped from the fetch list on 2026-08-18 along
+   with resume tailoring/generation itself, see step 5 below. The manifest is
+   a different, much smaller thing — see "Suggested resume" below.) Editing
+   these files in the repo (and pushing to `main`) is how you change the
+   routine's behavior without touching the routine prompt itself.
 2. **Scan Tier-A boards** (`node scripts/scan.mjs --maxAgeHours 24 --linkedinMaxAgeHours 24 --verify`) —
    ~40 companies with real ATS APIs (Greenhouse, Lever, Workday, Oracle ORC),
    filtered to postings ≤24h old (a wide safety margin over the ~4-6h gap
@@ -76,18 +78,33 @@ exactly how the Tier-B/C split works across 3 runs.
    turned out to be scope-restricted; Drive is the durable state this routine
    actually has) and drops anything already reported. This is what prevents
    LinkedIn's wider 24h window from re-reporting the same posting every hour.
-5. **Send an email listing the new matches — no resume tailoring right
-   now.** Resume tailoring (steps 5-6 as they used to read here — write a
+5. **Send an email listing the new matches, each with a suggested resume —
+   still no resume generation/attachment.** Full resume tailoring (write a
    `tailor.json` overlay, render via `render_resume_pdf.mjs`, attach a PDF)
-   was disabled on 2026-08-18 to cut token usage per run; the plan is to
-   re-enable it once cost is under control. Step 0's fetch list no longer
-   pulls `resume/resume-content.json` or `scripts/render_resume_pdf.mjs`,
-   and no longer runs `npm install pdfkit`, since nothing in the run
-   consumes them while this is off. Send ONE email via Gmail to
-   kelvimanavadaria@gmail.com **only if this run found ≥1 new match** (no
-   heartbeat — a per-run "0 new matches" email would be constant noise),
-   plain prose, listing every new match: company, title, location,
-   freshness, JD link, one-line fit rationale. No attachment.
+   was disabled on 2026-08-18 to cut token usage per run and stays disabled;
+   the plan is to re-enable it once cost is under control. Step 0's fetch
+   list still doesn't pull `resume/resume-content.json` or
+   `scripts/render_resume_pdf.mjs`, and still doesn't run `npm install
+   pdfkit`.
+
+   Separately, since 2026-08-30, each match line also names which **existing,
+   pre-built** resume variant fits best — a much lighter addition than full
+   tailoring, since it only reads the small `resume/variants/manifest.json`
+   (fetched in step 0) rather than generating anything. 11 variants live at
+   `resume/variants/<id>.tex` (AWS/Azure/GCP × SRE/DevOps, Generic DevOps/SRE,
+   and Platform/Infrastructure/Cloud Engineer — see
+   `.claude/skills/resume-variant/SKILL.md` at the repo root's parent for how
+   to add more). The routine matches each posting's title/JD against the
+   manifest's `matching.instructions` and appends a line like `Suggested
+   resume: AWS SRE (resume/variants/aws-sre.tex)` — a recommendation only,
+   naming a file Kelvi already has locally; the routine does not render,
+   tailor, or attach anything.
+
+   Send ONE email via Gmail to kelvimanavadaria@gmail.com **only if this run
+   found ≥1 new match** (no heartbeat — a per-run "0 new matches" email would
+   be constant noise), plain prose, listing every new match: company, title,
+   location, freshness, JD link, one-line fit rationale, suggested resume. No
+   attachment.
 6. **Update `job-hunt-seen-urls.json`** in Drive with the newly-reported URLs.
 
 ## Why PDF generation moved off LaTeX (2026-08-16, tailoring itself paused 2026-08-18)
@@ -130,11 +147,13 @@ both problems at once:
 - **No heartbeat means silence is the normal case.**
 - **Nothing is auto-applied.** This pipeline searches, matches, and reports
   only. Every application is still a manual, deliberate choice.
-- **Resume tailoring is paused (since 2026-08-18).** Runs currently just
-  list new openings by email — no per-match PDF is generated or attached.
-  This was a deliberate token-cost cut, not a bug; re-enable by restoring
-  step 5/6 (see "Why PDF generation moved off LaTeX" above) in the routine
-  prompt via `/schedule`.
+- **Resume generation/attachment is paused (since 2026-08-18).** Runs list
+  new openings by email with a suggested-resume line per match (added
+  2026-08-30, see step 5 above) — but no PDF or `.tex` is generated or
+  attached; the suggestion only names an existing file. Full tailoring was a
+  deliberate token-cost cut, not a bug; re-enable by restoring the
+  generate-and-attach steps (see "Why PDF generation moved off LaTeX" above)
+  in the routine prompt via `/schedule`.
 
 ## Maintenance
 
@@ -151,3 +170,11 @@ both problems at once:
   smaller slots (like the earlier ~15/run rotating design) trades per-run
   cost for a longer full-coverage cycle — either lever can move without
   touching the other, no repo file needs to change for either.
+- To add a new resume variant (a new cloud/role combo for the "Suggested
+  resume" line in step 5), use the `resume-variant` skill
+  (`.claude/skills/resume-variant/SKILL.md` at the JobSearch project root) —
+  it covers writing a `resume/tailors/<id>.json` overlay, rendering it with
+  `scripts/render_resume_tex.mjs`, and adding the entry to
+  `resume/variants/manifest.json`. Pushing the change to `origin/main` is
+  what makes it reachable by the routine, since the routine fetches the
+  manifest fresh from GitHub every run rather than using a local checkout.

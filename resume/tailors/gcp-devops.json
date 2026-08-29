@@ -1,0 +1,5 @@
+{
+  "summary": "DevOps Engineer with 2+ years of cloud-agnostic DevOps practice — Kubernetes, CI/CD pipelines, Terraform-driven infrastructure as code, and GitOps automation — built and run in production on AWS and Azure. Google Cloud Digital Leader-certified, applying the same automation and reliability discipline to GCP environments.",
+  "skillsOrder": ["Containerization & Orchestration", "Infrastructure as Code (IaC) & Configuration Management", "CI/CD & GitOps", "Cloud", "Observability", "SRE Practices", "Systems", "Architecture", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "platform"
+}

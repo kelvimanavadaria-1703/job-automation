@@ -1,0 +1,5 @@
+{
+  "summary": "Cloud Engineer with 2+ years architecting and running multi-cloud (AWS, Azure) systems — EC2, Lambda, Glue, and Athena on AWS, hybrid Azure Monitor observability — with Kubernetes, Terraform, and CI/CD pipelines as the automation backbone.",
+  "skillsOrder": ["Cloud", "Infrastructure as Code (IaC) & Configuration Management", "Containerization & Orchestration", "CI/CD & GitOps", "Observability", "SRE Practices", "Systems", "Architecture", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "sre"
+}

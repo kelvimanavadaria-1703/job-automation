@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "generated": "2026-08-30",
+  "note": "Source of truth stays resume/resume-content.json. Each variant here is a resume/tailors/<id>.json overlay (summary override + skillsOrder + leadBulletGroup only — never invented content) rendered by scripts/render_resume_tex.mjs into resume/variants/<id>.tex. To add a new variant, use the resume-variant skill instead of editing this file by hand.",
+  "variants": [
+    { "id": "aws-sre", "file": "resume/variants/aws-sre.tex", "displayName": "AWS SRE", "cloud": "AWS", "role": "SRE", "keywords": ["aws", "amazon web services", "sre", "site reliability", "reliability engineer"] },
+    { "id": "aws-devops", "file": "resume/variants/aws-devops.tex", "displayName": "AWS DevOps", "cloud": "AWS", "role": "DevOps", "keywords": ["aws", "amazon web services", "devops"] },
+    { "id": "azure-devops", "file": "resume/variants/azure-devops.tex", "displayName": "Azure DevOps", "cloud": "Azure", "role": "DevOps", "keywords": ["azure", "microsoft azure", "devops"] },
+    { "id": "azure-sre", "file": "resume/variants/azure-sre.tex", "displayName": "Azure SRE", "cloud": "Azure", "role": "SRE", "keywords": ["azure", "microsoft azure", "sre", "site reliability", "reliability engineer"] },
+    { "id": "gcp-devops", "file": "resume/variants/gcp-devops.tex", "displayName": "GCP DevOps", "cloud": "GCP", "role": "DevOps", "keywords": ["gcp", "google cloud", "devops"], "note": "Honest framing only — leads with transferable Kubernetes/Terraform/CI-CD skills + the real Google Cloud Digital Leader cert; does not claim hands-on GCP production experience." },
+    { "id": "gcp-sre", "file": "resume/variants/gcp-sre.tex", "displayName": "GCP SRE", "cloud": "GCP", "role": "SRE", "keywords": ["gcp", "google cloud", "sre", "site reliability", "reliability engineer"], "note": "Honest framing only — see gcp-devops note." },
+    { "id": "generic-devops", "file": "resume/variants/generic-devops.tex", "displayName": "Generic DevOps", "cloud": null, "role": "DevOps", "keywords": ["devops"] },
+    { "id": "generic-sre", "file": "resume/variants/generic-sre.tex", "displayName": "Generic SRE", "cloud": null, "role": "SRE", "keywords": ["sre", "site reliability", "reliability engineer"] },
+    { "id": "platform-engineer", "file": "resume/variants/platform-engineer.tex", "displayName": "Platform Engineer", "cloud": null, "role": "Platform Engineer", "keywords": ["platform engineer", "platform engineering"] },
+    { "id": "infrastructure-engineer", "file": "resume/variants/infrastructure-engineer.tex", "displayName": "Infrastructure Engineer", "cloud": null, "role": "Infrastructure Engineer", "keywords": ["infrastructure engineer", "infra engineer"] },
+    { "id": "cloud-engineer", "file": "resume/variants/cloud-engineer.tex", "displayName": "Cloud Engineer", "cloud": null, "role": "Cloud Engineer", "keywords": ["cloud engineer", "cloud infrastructure engineer"] }
+  ],
+  "matching": {
+    "instructions": "For each posting, check the title (and any JD snippet available) for a cloud keyword (aws/amazon web services, azure/microsoft azure, gcp/google cloud) and a role keyword (devops, sre/site reliability/reliability engineer, platform engineer, infrastructure engineer, cloud engineer, forward deployed). Priority order: (1) if the title is explicitly Platform Engineer, Infrastructure Engineer, or Cloud Engineer, use that dedicated variant regardless of any cloud mentioned — those variants are cloud-agnostic by design; (2) else if both a cloud and a DevOps/SRE-family role are identifiable, use the matching <cloud>-<role> variant; (3) else if only a DevOps/SRE-family role is identifiable (no cloud named — the common case for LinkedIn-discovered postings with no JD detail), use generic-devops or generic-sre; (4) if role itself is unclear (e.g. Forward Deployed Engineer/SRE with ambiguous scope), default to generic-devops and say so explicitly rather than guessing. Never pick a gcp-* variant unless GCP is explicitly named in the posting — do not infer GCP from generic 'cloud' language."
+  }
+}

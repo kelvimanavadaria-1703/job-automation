@@ -1,0 +1,5 @@
+{
+  "summary": "Platform Engineer with 2+ years building the Kubernetes, CI/CD, and infrastructure-as-code foundation multi-cloud (AWS, Azure) teams deploy on — GitOps automation, Helm-based service delivery, and the observability and cloud IAM/security that keep it reliable.",
+  "skillsOrder": ["Containerization & Orchestration", "CI/CD & GitOps", "Infrastructure as Code (IaC) & Configuration Management", "Cloud", "Architecture", "Observability", "SRE Practices", "Systems", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "platform"
+}

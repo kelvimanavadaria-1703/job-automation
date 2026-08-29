@@ -1,0 +1,5 @@
+{
+  "summary": "Site Reliability Engineer with 2+ years of cloud-agnostic SRE practice — 24x7 on-call, incident management, root cause analysis, SLA/SLO/error-budget-driven reliability — built in production on AWS and Azure. Google Cloud Digital Leader-certified, ready to apply the same observability and automation discipline (Kubernetes, Terraform, Prometheus/Grafana) to GCP environments.",
+  "skillsOrder": ["SRE Practices", "Observability", "Containerization & Orchestration", "Infrastructure as Code (IaC) & Configuration Management", "Cloud", "Systems", "Architecture", "CI/CD & GitOps", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "sre"
+}

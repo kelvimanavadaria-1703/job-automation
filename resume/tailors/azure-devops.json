@@ -1,0 +1,5 @@
+{
+  "summary": "DevOps Engineer with 2+ years building CI/CD pipelines and Kubernetes-based deployments across multi-cloud infrastructure, with hands-on Azure Monitor experience for hybrid observability alongside deeper AWS platform work. Skilled in Terraform, GitOps automation, and container orchestration.",
+  "skillsOrder": ["CI/CD & GitOps", "Cloud", "Containerization & Orchestration", "Observability", "Infrastructure as Code (IaC) & Configuration Management", "SRE Practices", "Systems", "Architecture", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "platform"
+}

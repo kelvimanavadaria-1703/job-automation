@@ -1,0 +1,5 @@
+{
+  "summary": "Infrastructure Engineer with 2+ years designing and operating highly available, fault-tolerant multi-cloud (AWS, Azure) infrastructure — Terraform-driven IaC, Kubernetes, networking, and the CI/CD pipelines and observability that keep distributed systems reliable.",
+  "skillsOrder": ["Infrastructure as Code (IaC) & Configuration Management", "Systems", "Cloud", "Architecture", "Containerization & Orchestration", "Observability", "SRE Practices", "CI/CD & GitOps", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "platform"
+}

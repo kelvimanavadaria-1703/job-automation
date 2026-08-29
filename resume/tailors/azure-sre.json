@@ -1,0 +1,5 @@
+{
+  "summary": "Site Reliability Engineer with 2+ years applying SRE practices — 24x7 on-call, incident management, root cause analysis, SLA/SLO/error-budget-driven reliability — across multi-cloud infrastructure, including hands-on Azure Monitor for hybrid observability and business continuity. Builds the automation that keeps distributed systems stable.",
+  "skillsOrder": ["SRE Practices", "Observability", "Cloud", "Systems", "Architecture", "Containerization & Orchestration", "Infrastructure as Code (IaC) & Configuration Management", "CI/CD & GitOps", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "sre"
+}

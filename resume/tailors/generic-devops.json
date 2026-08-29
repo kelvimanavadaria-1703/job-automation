@@ -1,0 +1,5 @@
+{
+  "summary": "DevOps Engineer with 2+ years of experience designing and running multi-cloud (AWS, Azure) infrastructure, CI/CD pipelines, and Kubernetes-based deployments. Skilled in GitOps automation, Terraform, and container orchestration, with a track record of building highly available systems and the observability to keep them that way.",
+  "skillsOrder": ["CI/CD & GitOps", "Containerization & Orchestration", "Cloud", "Infrastructure as Code (IaC) & Configuration Management", "Observability", "SRE Practices", "Systems", "Architecture", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "platform"
+}
