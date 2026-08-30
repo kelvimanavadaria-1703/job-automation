@@ -215,7 +215,7 @@ function buildTex (content) {
 
   // ---- Header ----
   lines.push('    \\begin{center}')
-  lines.push(`    \\LARGE{${esc(h.name)}} \\\\[4pt]`)
+  lines.push(`    \\LARGE{\\textbf{${esc(h.name)}}} \\\\[4pt]`)
   const segs = [
     `\\href{mailto:${h.email}}{${esc(h.email)}}`,
     esc(h.phone),
