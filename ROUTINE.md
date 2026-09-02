@@ -155,8 +155,43 @@ both problems at once:
   generate-and-attach steps (see "Why PDF generation moved off LaTeX" above)
   in the routine prompt via `/schedule`.
 
+## Recruiter / third-party staffing channel (added 2026-09-03)
+
+There are three sourcing channels, one data file each:
+
+| File | Channel | Skill (at JobSearch project root, `.claude/skills/`) |
+|---|---|---|
+| `data/companies.json` | Companies' own career portals / ATS | `company-portals` |
+| `data/platforms.json` | LinkedIn + job boards / aggregators | `job-platforms` |
+| `data/recruiters.json` | Third-party firms recruiting for others | `recruiter-outreach` |
+
+On 2026-09-03 Kelvi made the **third-party IT staffing / talent-acquisition firm
+channel the priority** — `data/recruiters.json` was expanded to v2 (~110 firms:
+global IT-staffing majors, India IT-staffing/GCC-vendor firms, RPO / boutique /
+interview-as-a-service) with a `priority` model (`P1`/`P2`/`P3`), `type`,
+`techFocus`, `regions`, `registerUrl` fields, and a `_priority` note.
+
+**The 3×/day routine does NOT act on this file yet.** It is not in the routine's
+GitHub fetch list (step 1) and no step reads it — `recruiter-outreach` is a
+manual/assisted workflow for now. To bring it into the routine, the prompt must
+change via `/schedule` (RemoteTrigger). A minimal version:
+
+- Add `data/recruiters.json` to the step-1 `curl` fetch list.
+- Add a step (weekly, or one run/day) that lists `P1` firms with no outreach
+  logged and either (a) drafts registration/intro actions into the email, or
+  (b) appends them to a Drive `recruiter-outreach-log.json`, mirroring how
+  `job-hunt-seen-urls.json` is used for dedup.
+- Keep it outreach-only — no auto-send, same as the no-auto-apply rule.
+
+Until that prompt change is made and this doc updated, treat the recruiter
+channel as human-run.
+
 ## Maintenance
 
+- To work any of the three channels (add/verify entries, run a pass), use the
+  matching skill above — each documents its data-file schema, the honesty/safety
+  rules, and what needs a `/schedule` prompt edit vs. just a push to
+  `origin/main`.
 - If a Tier-A board starts erroring in the run log (`stale[]` in
   `data/jobs.raw.json`), the ATS slug/tenant likely moved — re-verify the
   endpoint and update `data/companies.json`.
