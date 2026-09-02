@@ -36,7 +36,7 @@
     \RequirePackage{color}
     \RequirePackage{graphicx}
     \usepackage[usenames,dvipsnames]{xcolor}
-    \usepackage[scale=0.85, top=0.85cm, bottom=0.85cm, left=0.85cm, right=0.85cm]{geometry}
+    \usepackage[top=0.75cm, bottom=0.70cm, left=0.75cm, right=0.85cm]{geometry}
     
     % tabularx environment
     \usepackage{tabularx}
@@ -59,15 +59,15 @@
     \usepackage{multicol}
     \usepackage{multirow}
     
-    % section formatting - BALANCED SPACING
+    % section formatting - TIGHT SPACING
     \titleformat{\section}{\large\scshape\raggedright}{}{0em}{}[\titlerule]
-    \titlespacing{\section}{0pt}{5pt}{3pt}
-    
-    % global spacing tweaks - BALANCED
-    \setlength{\parskip}{1pt}
+    \titlespacing{\section}{0pt}{3.5pt}{1.5pt}
+
+    % global spacing tweaks - TIGHT
+    \setlength{\parskip}{0.4pt}
     \setlength{\parindent}{0pt}
-    \setlist[itemize]{nosep, topsep=1pt, partopsep=0pt, leftmargin=1em, itemsep=1pt}
-    \linespread{0.962}\selectfont
+    \setlist[itemize]{topsep=0.3pt, partopsep=0pt, parsep=0pt, leftmargin=1em, itemsep=0.35pt}
+    \linespread{0.92}\selectfont
     
     \usepackage[unicode, draft=false]{hyperref}
     \definecolor{linkcolour}{rgb}{0,0.2,0.6}
@@ -87,14 +87,14 @@
     \newenvironment{joblong}[2]
         {
         \noindent\textbf{#1}\hfill{#2}\par
-        \vspace{-3.2pt}
+        \vspace{0.3pt}
         \begin{minipage}[t]{\linewidth}
-        \begin{itemize}[nosep, after=\strut, leftmargin=0.5em, itemsep=1pt, label=\raisebox{0.2ex}{\tiny$\circ$}]
+        \begin{itemize}[after=\strut, topsep=0.3pt, partopsep=0pt, parsep=0pt, leftmargin=0.5em, itemsep=0.35pt, label=\raisebox{0.2ex}{\tiny$\circ$}]
         }
         {
         \end{itemize}
         \end{minipage}
-        \vspace{-3.2pt}
+        \vspace{0.5pt}
         }
     
     % Custom nested itemize style
@@ -118,15 +118,19 @@
     
     
     \begin{center}
-    \LARGE{\textbf{Kelvi Manavadaria}} \\[4pt]
+    \LARGE{\textbf{Kelvi Manavadaria}} \\[1.5pt]
+    {\small
     \href{mailto:kelvimanavadaria@gmail.com}{kelvimanavadaria@gmail.com} \ $|$ \
     +91 7862036686 \ $|$ \
     \href{https://github.com/KelviManavadaria-17}{github.com/KelviManavadaria-17} \ $|$ \
     \href{https://www.linkedin.com/in/kelvi-manavadaria/}{linkedin.com/in/kelvi-manavadaria}
+    }
     \end{center}
-    
+
+    \vspace{0.5pt}
+
     %----------------------------------------------------------------------------------------
-    
+
     \section{Summary}
 DevOps / SRE / Platform Engineer with 2+ years of experience building scalable and highly available systems on AWS and Azure. Skilled
 in Kubernetes, CI/CD, infrastructure as code, and cloud IAM/security. Focused on observability and automation.
@@ -135,7 +139,7 @@ in Kubernetes, CI/CD, infrastructure as code, and cloud IAM/security. Focused on
     %----------------------------------------------------------------------------------------
 
     \section{Skills}
-    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
+    \begin{itemize}[leftmargin=1.35em, itemsep=0.35pt, topsep=0.3pt, parsep=0pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
     \item \textbf{Cloud:} AWS (EC2, ECR, IAM, RDS, DynamoDB, Lambda, Glue, Athena, API Gateway, Cognito, EventBridge, CloudTrail), Azure (Azure Monitor)
     \item \textbf{CI/CD \& GitOps:} Jenkins, GitLab CI, ArgoCD, GitHub Actions, AWS CodePipeline, AWS CodeBuild, GitOps
     \item \textbf{Containerization \& Orchestration:} Kubernetes, Docker, Helm
@@ -160,8 +164,8 @@ in Kubernetes, CI/CD, infrastructure as code, and cloud IAM/security. Focused on
     \item Deployed indirect tax calculation microservices on \textbf{Kubernetes} clusters using \textbf{Helm}, enabling \textbf{scalable}, \textbf{fault-tolerant}, and \textbf{highly available systems} across environments via \textbf{CI/CD pipelines}, and architected a \textbf{multi-layer observability stack} for proactive alerting.
     \item Automated workflows following \textbf{GitOps} practices using \textbf{GitHub Actions} for building custom Docker images, and built authentication for secure image access to \textbf{Amazon ECR} using \textbf{AWS Cognito}.
     \end{itemize}
-    \vspace{5pt}
-    
+    \vspace{0.5pt}
+
     \item \textbf{Site Reliability Engineer (SRE) in Cloud Managed Services Team}
     \begin{itemize}
 
@@ -181,7 +185,7 @@ in Kubernetes, CI/CD, infrastructure as code, and cloud IAM/security. Focused on
     \begin{joblong}{Cloud Engineer Intern}{May 2023 -- Jun 2023}
     Mactores Innovation
     \item \textbf{High-Availability CI/CD Pipeline in AWS}
-    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=1pt, label=\raisebox{0.25ex}{\small$-$}]
+    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=0.3pt, topsep=0pt, label=\raisebox{0.25ex}{\small$-$}]
     \item Implemented a resilient \textbf{CI/CD pipeline} using \textbf{AWS CodePipeline, CodeBuild, and GitHub Actions}, ensuring \textbf{99.95\% uptime}.
     \end{itemize}
     \end{joblong}
@@ -189,7 +193,7 @@ in Kubernetes, CI/CD, infrastructure as code, and cloud IAM/security. Focused on
     \begin{joblong}{DevOps Intern}{May 2022 -- May 2023}
     Motorola Solutions
     \item \textbf{Scalable Logging and Monitoring with ELK Stack}
-    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=1pt, label=\raisebox{0.25ex}{\small$-$}]
+    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=0.3pt, topsep=0pt, label=\raisebox{0.25ex}{\small$-$}]
     \item Built centralized \textbf{logging and monitoring system} using \textbf{ELK Stack} and \textbf{Docker}, improving observability and debugging efficiency.
     \end{itemize}
     \end{joblong}
@@ -200,9 +204,9 @@ in Kubernetes, CI/CD, infrastructure as code, and cloud IAM/security. Focused on
     
     \section{Projects and Blogs}
     
-    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
+    \begin{itemize}[leftmargin=1.35em, itemsep=0.35pt, topsep=0.3pt, parsep=0pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
     \item \textbf{Other Projects} \href{https://github.com/KelviManavadaria-17}{[Github]}
-    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=1pt, label=\raisebox{0.25ex}{\small$-$}]
+    \begin{itemize}[nosep, leftmargin=1.5em, itemsep=0.3pt, topsep=0pt, label=\raisebox{0.25ex}{\small$-$}]
     \item Configured a \textbf{CI/CD pipeline} integrating \textbf{Jenkins, GitHub Actions, and Argo CD} for automated \textbf{Kubernetes deployments}.
     \end{itemize}
     \item \textbf{Blogs} \href{https://medium.com/@KelviManavadaria}{[Medium]}
@@ -216,25 +220,21 @@ in Kubernetes, CI/CD, infrastructure as code, and cloud IAM/security. Focused on
     
     \noindent\textbf{B. Tech in Computer Engineering}\hfill{2020 -- 2024}\par
     \noindent Charotar University of Science and Technology\hfill{\textbf{GPA: 9.55}}\par
-    
-    \vspace{3pt}
-    
+
     %----------------------------------------------------------------------------------------
     % CERTIFICATIONS SECTION
     %----------------------------------------------------------------------------------------
     
     \section{Certifications}
 
-    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
+    \begin{itemize}[leftmargin=1.35em, itemsep=0.35pt, topsep=0.3pt, parsep=0pt, label=\raisebox{0.25ex}{\tiny$\circ$}]
     \item \textbf{AWS:} Solutions Architect – Associate (Expired Jun 2026) \ $|$ \ SysOps Administrator – Associate (Valid thru Apr 2027) \ $|$ \ Cloud Practitioner (Valid thru Apr 2027)
     \item Certified Kubernetes Administrator (CKA) — Valid thru Nov 2026
     \item \textbf{Multi-Cloud:} Google Cloud Digital Leader (Valid thru Feb 2027) \ $|$ \ Microsoft Certified: Azure Fundamentals (Issued Dec 2022)
     \item HashiCorp Certified: Terraform Associate (003) (Expired Oct 2025)
     \item \href{https://www.credly.com/users/kelvi-manavadaria}{Additional Certifications (incl. AWS Partner: Sales \& Technical Accredited)}
     \end{itemize}
-    
-    \vspace{1.5pt}
-    
+
     \end{document}
     
 

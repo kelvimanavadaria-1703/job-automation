@@ -130,7 +130,7 @@ const PREAMBLE = String.raw`    %-----------------------------------------------
     \RequirePackage{color}
     \RequirePackage{graphicx}
     \usepackage[usenames,dvipsnames]{xcolor}
-    \usepackage[scale=0.85, top=0.85cm, bottom=0.85cm, left=0.85cm, right=0.85cm]{geometry}
+    \usepackage[top=0.75cm, bottom=0.70cm, left=0.75cm, right=0.85cm]{geometry}
 
     % tabularx environment
     \usepackage{tabularx}
@@ -153,15 +153,15 @@ const PREAMBLE = String.raw`    %-----------------------------------------------
     \usepackage{multicol}
     \usepackage{multirow}
 
-    % section formatting - BALANCED SPACING
+    % section formatting - TIGHT SPACING
     \titleformat{\section}{\large\scshape\raggedright}{}{0em}{}[\titlerule]
-    \titlespacing{\section}{0pt}{5pt}{3pt}
+    \titlespacing{\section}{0pt}{3.5pt}{1.5pt}
 
-    % global spacing tweaks - BALANCED
-    \setlength{\parskip}{1pt}
+    % global spacing tweaks - TIGHT
+    \setlength{\parskip}{0.4pt}
     \setlength{\parindent}{0pt}
-    \setlist[itemize]{nosep, topsep=1pt, partopsep=0pt, leftmargin=1em, itemsep=1pt}
-    \linespread{0.962}\selectfont
+    \setlist[itemize]{topsep=0.3pt, partopsep=0pt, parsep=0pt, leftmargin=1em, itemsep=0.35pt}
+    \linespread{0.92}\selectfont
 
     \usepackage[unicode, draft=false]{hyperref}
     \definecolor{linkcolour}{rgb}{0,0.2,0.6}
@@ -181,14 +181,14 @@ const PREAMBLE = String.raw`    %-----------------------------------------------
     \newenvironment{joblong}[2]
         {
         \noindent\textbf{#1}\hfill{#2}\par
-        \vspace{-3.2pt}
+        \vspace{0.3pt}
         \begin{minipage}[t]{\linewidth}
-        \begin{itemize}[nosep, after=\strut, leftmargin=0.5em, itemsep=1pt, label=\raisebox{0.2ex}{\tiny$\circ$}]
+        \begin{itemize}[after=\strut, topsep=0.3pt, partopsep=0pt, parsep=0pt, leftmargin=0.5em, itemsep=0.35pt, label=\raisebox{0.2ex}{\tiny$\circ$}]
         }
         {
         \end{itemize}
         \end{minipage}
-        \vspace{-3.2pt}
+        \vspace{0.5pt}
         }
 
     % Custom nested itemize style
@@ -215,7 +215,8 @@ function buildTex (content) {
 
   // ---- Header ----
   lines.push('    \\begin{center}')
-  lines.push(`    \\LARGE{\\textbf{${esc(h.name)}}} \\\\[4pt]`)
+  lines.push(`    \\LARGE{\\textbf{${esc(h.name)}}} \\\\[1.5pt]`)
+  lines.push('    {\\small')
   const segs = [
     `\\href{mailto:${h.email}}{${esc(h.email)}}`,
     esc(h.phone),
@@ -223,7 +224,10 @@ function buildTex (content) {
     h.linkedin ? `\\href{${h.linkedin.url}}{${esc(h.linkedin.label)}}` : null,
   ].filter(Boolean)
   lines.push('    ' + segs.join(' \\ $|$ \\\n    '))
+  lines.push('    }')
   lines.push('    \\end{center}')
+  lines.push('')
+  lines.push('    \\vspace{0.5pt}')
   lines.push('')
   lines.push('    %----------------------------------------------------------------------------------------')
   lines.push('')
@@ -238,7 +242,7 @@ function buildTex (content) {
   lines.push('    %----------------------------------------------------------------------------------------')
   lines.push('')
   lines.push('    \\section{Skills}')
-  lines.push('    \\begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\\raisebox{0.25ex}{\\tiny$\\circ$}]')
+  lines.push('    \\begin{itemize}[leftmargin=1.35em, itemsep=0.35pt, topsep=0.3pt, parsep=0pt, label=\\raisebox{0.25ex}{\\tiny$\\circ$}]')
   for (const s of content.skills) {
     lines.push(`    \\item \\textbf{${esc(s.category)}:} ${esc(s.items)}`)
   }
@@ -260,7 +264,7 @@ function buildTex (content) {
       lines.push('    \\begin{itemize}')
       for (const b of g.bullets) lines.push(`    \\item ${esc(b)}`)
       lines.push('    \\end{itemize}')
-      if (gi < job.bulletGroups.length - 1) { lines.push('    \\vspace{5pt}'); lines.push('') }
+      if (gi < job.bulletGroups.length - 1) { lines.push('    \\vspace{0.5pt}'); lines.push('') }
     })
     lines.push('    \\end{joblong}')
     lines.push('')
@@ -274,11 +278,11 @@ function buildTex (content) {
     lines.push('')
     lines.push(`    \\section{Projects${content.blogs ? ' and Blogs' : ''}}`)
     lines.push('')
-    lines.push('    \\begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\\raisebox{0.25ex}{\\tiny$\\circ$}]')
+    lines.push('    \\begin{itemize}[leftmargin=1.35em, itemsep=0.35pt, topsep=0.3pt, parsep=0pt, label=\\raisebox{0.25ex}{\\tiny$\\circ$}]')
     for (const p of content.projects) {
       const link = p.link ? ` \\href{${p.link.url}}{[${esc(p.link.label)}]}` : ''
       lines.push(`    \\item \\textbf{${esc(p.heading)}}${link}`)
-      lines.push('    \\begin{itemize}[nosep, leftmargin=1.5em, itemsep=1pt, label=\\raisebox{0.25ex}{\\small$-$}]')
+      lines.push('    \\begin{itemize}[nosep, leftmargin=1.5em, itemsep=0.3pt, topsep=0pt, label=\\raisebox{0.25ex}{\\small$-$}]')
       for (const b of p.bullets) lines.push(`    \\item ${esc(b)}`)
       lines.push('    \\end{itemize}')
     }
@@ -299,8 +303,6 @@ function buildTex (content) {
   lines.push(`    \\noindent\\textbf{${esc(content.education.degree)}}\\hfill{${esc(content.education.dates)}}\\par`)
   lines.push(`    \\noindent ${esc(content.education.school)}\\hfill{\\textbf{${esc(content.education.detail)}}}\\par`)
   lines.push('')
-  lines.push('    \\vspace{3pt}')
-  lines.push('')
 
   // ---- Certifications ----
   lines.push('    %----------------------------------------------------------------------------------------')
@@ -309,11 +311,9 @@ function buildTex (content) {
   lines.push('')
   lines.push('    \\section{Certifications}')
   lines.push('')
-  lines.push('    \\begin{itemize}[leftmargin=1.5em, itemsep=2pt, label=\\raisebox{0.25ex}{\\tiny$\\circ$}]')
+  lines.push('    \\begin{itemize}[leftmargin=1.35em, itemsep=0.35pt, topsep=0.3pt, parsep=0pt, label=\\raisebox{0.25ex}{\\tiny$\\circ$}]')
   for (const c of content.certifications) lines.push(`    \\item ${esc(c)}`)
   lines.push('    \\end{itemize}')
-  lines.push('')
-  lines.push('    \\vspace{1.5pt}')
   lines.push('')
   lines.push('    \\end{document}')
   lines.push('')
