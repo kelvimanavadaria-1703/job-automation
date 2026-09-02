@@ -186,13 +186,14 @@ both problems at once:
 
 ## Recruiter / third-party staffing channel (added 2026-09-03)
 
-There are three sourcing channels, one data file each:
+There are **four** sourcing channels, one data file each:
 
 | File | Channel | Skill (at JobSearch project root, `.claude/skills/`) |
 |---|---|---|
 | `data/companies.json` | Companies' own career portals / ATS | `company-portals` |
-| `data/platforms.json` | LinkedIn + job boards / aggregators | `job-platforms` |
-| `data/recruiters.json` | Third-party firms recruiting for others | `recruiter-outreach` |
+| `data/platforms.json` | LinkedIn + India job boards / aggregators | `job-platforms` |
+| `data/recruiters.json` | India third-party firms recruiting for others | `recruiter-outreach` |
+| `data/relocation.json` | Overseas visa-sponsorship boards + relocation recruiters | `visa-relocation` |
 
 On 2026-09-03 Kelvi made the **third-party IT staffing / talent-acquisition firm
 channel the priority** — `data/recruiters.json` was expanded to v2 (~110 firms:
@@ -216,9 +217,48 @@ into the email or appends them to a Drive `recruiter-outreach-log.json`
 (mirroring `job-hunt-seen-urls.json`) — outreach-only, no auto-send, same as the
 no-auto-apply rule.
 
+## Overseas visa-sponsorship / relocation channel (added 2026-09-03)
+
+The **4th channel** (`data/relocation.json`, `visa-relocation` skill) covers
+third-party firms and job boards that hire *into a foreign country* with
+work-visa sponsorship / relocation for a non-EU, India-passport candidate —
+`daijob.com` (Japan) is the archetype Kelvi named. It holds two kinds of entity:
+international job boards with a sponsorship/relocation filter (Relocate.me,
+Arbeitnow, Japan Dev, TokyoDev, Landing.jobs, MobiTalents, GulfTalent, Work in
+Estonia, …) and cross-border relocation recruiters (Recruitroo → Ireland, SVA →
+Dubai, Nordic Jobs Worldwide → Nordics, NES Fircroft → Gulf megaprojects, …),
+plus a few government talent portals and official sponsor/shortage-list
+targeting tools. Target countries: Germany, Netherlands, Ireland, UAE, Japan,
+Portugal, Spain, Poland, Czech Republic, Estonia, Sweden, Denmark, Finland,
+Norway, Singapore, New Zealand, Saudi Arabia, Qatar (v1 = 65 entries;
+`priority` P1/P2/P3, `kind`, `countries`, `visaFilter`, `applyUrl`).
+
+**Priority:** ranks **below** the recruiter channel (Kelvi's stated priority)
+unless/until he says he's actively pursuing relocation.
+
+**What the routine does with it today: nothing.** Same status `recruiters.json`
+had when first added — no script reads it, not in the Step-0 fetch list, the
+3×/day routine does not act on it. Making it a live **4th search step** needs a
+`/schedule` (RemoteTrigger) prompt change:
+
+1. Add `data/relocation.json` to the Step-0 `curl` fetch list.
+2. Add a search step that runs the P1 `intl-jobboard` / `aggregator` entries for a
+   rotating subset of the target countries (mirroring the Tier-B/C `mod` split),
+   with the sponsorship/relocation filter on.
+3. Add a **4th coloured email section** — "Overseas / visa-sponsorship" (purple
+   `#8b3fbf`), after the existing recruiter (blue) / portal (green) / platform
+   (amber) sections — each line carrying the mapped visa route (Blue Card /
+   Critical Skills / specialist permit / Green List / EP) and a "verify
+   sponsorship on the JD" caveat.
+4. Discovery + report only — no auto-register, no outreach, same as every other
+   channel.
+
+Until then, `visa-relocation` is a manual/assisted workflow. See
+`.claude/skills/visa-relocation/SKILL.md`.
+
 ## Maintenance
 
-- To work any of the three channels (add/verify entries, run a pass), use the
+- To work any of the four channels (add/verify entries, run a pass), use the
   matching skill above — each documents its data-file schema, the honesty/safety
   rules, and what needs a `/schedule` prompt edit vs. just a push to
   `origin/main`.
