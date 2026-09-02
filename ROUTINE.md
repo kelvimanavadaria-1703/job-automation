@@ -10,6 +10,12 @@ as `DevOps-SRE-BFSI-JobHunt` — superseded, no action needed unless you want
 it deleted via https://claude.ai/code/routines. The active routine is
 `BFSI DevOps/SRE Job Hunt (3x/day, full daily coverage)`.
 
+**Sibling routine:** a second daily cloud agent, `Outreach contacts —
+recruiters / HR / LinkedIn mail-to (daily)` (`trig_015PeNTjDuDSDiyhKQTNCBvP`),
+harvests *email addresses to cold-mail* rather than job postings — see
+`OUTREACH-ROUTINE.md`. It reads this routine's `job-hunt-seen-urls.json` (for
+its "new openings" channel) and writes its own `job-hunt-outreach-contacts.json`.
+
 ## Schedule
 
 Runs **3x/day**, on the :30 minute mark, at UTC hours 3/7/13
