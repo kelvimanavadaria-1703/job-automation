@@ -102,9 +102,32 @@ exactly how the Tier-B/C split works across 3 runs.
 
    Send ONE email via Gmail to kelvimanavadaria@gmail.com **only if this run
    found ≥1 new match** (no heartbeat — a per-run "0 new matches" email would
-   be constant noise), plain prose, listing every new match: company, title,
-   location, freshness, JD link, one-line fit rationale, suggested resume. No
-   attachment.
+   be constant noise). No attachment.
+
+   **Email format (updated 2026-09-03):** the email is now an **HTML** message
+   split into **three channel sections**, always in this order, each with its
+   own full-width coloured header bar:
+
+   1. **Recruiter / staffing firms** (blue `#1a73e8`) — matches whose hiring
+      entity name-matches a firm in `data/recruiters.json` (with its P1/P2/P3);
+      each such match also gets a `Via: <firm> (<Px>) — third-party posted` line.
+   2. **Company career portals** (green `#188038`) — matches from the Tier-A
+      scan or the Tier-B/C careers-page checks, i.e. anything tied to a
+      `companies.json` entry.
+   3. **Job platforms — LinkedIn / boards** (amber `#b06000`) — LinkedIn/board
+      hits whose employer is a direct company in neither registry.
+
+   All three headers always render (an empty section shows "— none this run").
+   Per match, unchanged: company, title, location, freshness, JD link, one-line
+   fit rationale, suggested resume. Subject gains per-section counts, e.g.
+   `N new DevOps/SRE matches (2 recruiter · 3 portal · 1 platform) — …`. If the
+   Gmail tool can't send HTML, it falls back to plain text with the same three
+   sections under `======` divider lines.
+
+   **Note:** the recruiter section is populated *only* by name-matching the
+   matches the run already found (mostly LinkedIn hits posted by staffing
+   firms) against `recruiters.json` — the routine does **not** crawl recruiter
+   firms' own websites. `recruiters.json` is now in the Step-0 fetch list.
 6. **Update `job-hunt-seen-urls.json`** in Drive with the newly-reported URLs.
 
 ## Why PDF generation moved off LaTeX (2026-08-16, tailoring itself paused 2026-08-18)
@@ -171,20 +194,21 @@ global IT-staffing majors, India IT-staffing/GCC-vendor firms, RPO / boutique /
 interview-as-a-service) with a `priority` model (`P1`/`P2`/`P3`), `type`,
 `techFocus`, `regions`, `registerUrl` fields, and a `_priority` note.
 
-**The 3×/day routine does NOT act on this file yet.** It is not in the routine's
-GitHub fetch list (step 1) and no step reads it — `recruiter-outreach` is a
-manual/assisted workflow for now. To bring it into the routine, the prompt must
-change via `/schedule` (RemoteTrigger). A minimal version:
+**What the routine does with `recruiters.json` (as of 2026-09-03):** it is now
+in the Step-0 `curl` fetch list and is read every run for **one purpose** — to
+route matches whose hiring entity name-matches a listed firm into the
+"Recruiter / staffing firms" section of the email (see step 5 above). That's a
+name-match on matches the run already found (mostly LinkedIn postings put up by
+staffing firms); the routine does **not** crawl recruiter firms' own sites.
 
-- Add `data/recruiters.json` to the step-1 `curl` fetch list.
-- Add a step (weekly, or one run/day) that lists `P1` firms with no outreach
-  logged and either (a) drafts registration/intro actions into the email, or
-  (b) appends them to a Drive `recruiter-outreach-log.json`, mirroring how
-  `job-hunt-seen-urls.json` is used for dedup.
-- Keep it outreach-only — no auto-send, same as the no-auto-apply rule.
-
-Until that prompt change is made and this doc updated, treat the recruiter
-channel as human-run.
+**What the routine still does NOT do:** any outreach — registering a profile,
+emailing a firm, logging which firms have been contacted. That stays a
+manual/assisted workflow via the `recruiter-outreach` skill. To automate it, the
+prompt would need a further `/schedule` change: e.g. a weekly step that lists
+`P1` firms with no outreach logged and either drafts registration/intro actions
+into the email or appends them to a Drive `recruiter-outreach-log.json`
+(mirroring `job-hunt-seen-urls.json`) — outreach-only, no auto-send, same as the
+no-auto-apply rule.
 
 ## Maintenance
 
