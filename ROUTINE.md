@@ -90,9 +90,9 @@ exactly how the Tier-B/C split works across 3 runs.
    Separately, since 2026-08-30, each match line also names which **existing,
    pre-built** resume variant fits best — a much lighter addition than full
    tailoring, since it only reads the small `resume/variants/manifest.json`
-   (fetched in step 0) rather than generating anything. 11 variants live at
+   (fetched in step 0) rather than generating anything. 12 variants live at
    `resume/variants/<id>.tex` (AWS/Azure/GCP × SRE/DevOps, Generic DevOps/SRE,
-   and Platform/Infrastructure/Cloud Engineer — see
+   Platform/Infrastructure/Cloud Engineer, and Forward Deployed Engineer — see
    `.claude/skills/resume-variant/SKILL.md` at the repo root's parent for how
    to add more). The routine matches each posting's title/JD against the
    manifest's `matching.instructions` and appends a line like `Suggested

@@ -1,0 +1,5 @@
+{
+  "summary": "Forward-deployed infrastructure/reliability engineer with 2+ years embedded directly at client infrastructure — outsourced to Thomson Reuters as a Platform Engineer, deploying and operating Kubernetes/CI-CD platforms and multi-layer observability on-site across environments. Runs 24x7 on-call, incident management, and SLA/SLO-driven reliability across 30+ client accounts in a multi-cloud (AWS, Azure) environment.",
+  "skillsOrder": ["SRE Practices", "Containerization & Orchestration", "CI/CD & GitOps", "Observability", "Cloud", "Infrastructure as Code (IaC) & Configuration Management", "Architecture", "Systems", "Languages, Scripting & Delivery"],
+  "leadBulletGroup": "platform"
+}

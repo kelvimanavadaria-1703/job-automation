@@ -2,9 +2,10 @@
   "version": 1,
   "notifyEmail": "kelvimanavadaria@gmail.com",
   "googleSheet": {
-    "url": "PENDING — Kelvi to create a Google Sheet with the header row specified in ROUTINE.md and paste its URL/ID here",
-    "id": null,
-    "headerRow": ["Date Found", "Company", "Role Title", "Location", "Posted", "Source Tier", "JD Link", "Est. Salary Band", "Match Notes", "Tailored Resume (LaTeX)"]
+    "url": "https://docs.google.com/spreadsheets/d/1p8R7lh_g9FdogBojZ7etJA37DgTdjN6WfldNY9FoeRM/edit",
+    "id": "1p8R7lh_g9FdogBojZ7etJA37DgTdjN6WfldNY9FoeRM",
+    "headerRow": ["Date Found", "Company", "Role Title", "Location", "Posted", "Source Tier", "JD Link", "Est. Salary Band", "Match Notes", "Tailored Resume (LaTeX)", "Applied Date", "Application Status", "Outcome / Notes"],
+    "note": "Manual tracker Kelvi updates himself when applying — the automated routine does NOT write to this. Per ROUTINE.md step 4, Sheets access turned out to be scope-restricted for the cloud routine, which uses job-hunt-seen-urls.json in Drive for dedup instead. This file (config.json) also isn't in the routine's fetch list (see ROUTINE.md step 1), so it's local-only reference, not live config."
   },
   "schedule": {
     "cronUTC": "30 2,7,12,16 * * *",
