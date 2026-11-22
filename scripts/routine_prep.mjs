@@ -10,6 +10,8 @@
 //       -> prints compact new matches (already routed) + tier-B/C pre-check
 //   node scripts/routine_prep.mjs ledger --seen /tmp/seen.json --add /tmp/reported.txt
 //       -> prints the updated ledger JSON (short URL hashes) to save to Drive
+//   node scripts/routine_prep.mjs check --seen /tmp/seen.json --urls /tmp/tierb.txt
+//       -> prints only the URLs not already in the ledger
 //
 // Ledger format: {"generated":ISO,"h":["<10-hex sha1 of url>",...]}. A legacy
 // {"urls":[...full urls...]} ledger is still accepted and migrated on write.
@@ -141,12 +143,17 @@ if (mode === 'prep') {
   for (const n of [...names('blocked'), ...names('unreachable')]) console.log(n)
   console.log(`\n## JS-only (no server-rendered text; WebFetch cannot render JS either) — skip (${by('js-only').length}): ${by('js-only').map(r => r.c.name).join(', ')}`)
   console.log(`## no role mentioned on page — skip (${by('no-role').length}): ${by('no-role').map(r => r.c.name).join(', ')}`)
+} else if (mode === 'check') {
+  // Prints only the URLs (one per line in --urls file) NOT already in the ledger.
+  const seen = new Set(await loadLedger())
+  const urls = (await readFile(opt('--urls'), 'utf8')).split(/\s+/).filter(Boolean)
+  for (const u of urls) if (!seen.has(hash(u))) console.log(u)
 } else if (mode === 'ledger') {
   const prev = await loadLedger()
   const add = opt('--add') ? (await readFile(opt('--add'), 'utf8')).split(/\s+/).filter(Boolean).map(toHash) : []
   const all = [...new Set([...prev, ...add])].slice(-MAX_LEDGER)
   process.stdout.write(JSON.stringify({ generated: new Date().toISOString(), h: all }))
 } else {
-  console.error('usage: routine_prep.mjs prep|ledger --seen <file> [--add <file>]')
+  console.error('usage: routine_prep.mjs prep|check|ledger --seen <file> [--add <file>]')
   process.exit(1)
 }
