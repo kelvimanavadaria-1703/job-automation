@@ -21,6 +21,9 @@ const ROOT = join(here, '..')
 const ROLE = /\b(devops|site reliability|\bsre\b|platform engineer|cloud engineer|cloud infrastructure|infrastructure engineer|systems reliability|forward[\s-]deployed)\b/i
 const INDIA = /(india|bengaluru|bangalore|pune|hyderabad|gurgaon|gurugram|noida|mumbai|chennai|delhi|powai)/i
 const REMOTE = /remote|anywhere|distributed|work from home|worldwide/i
+// A "Remote" job restricted to another country/region is not open to Kelvi (2026-11-27).
+const FOREIGN_ONLY = /\b(usa|u\.s\.|united states|us|canada|americas?|latam|mexico|brazil|europe|emea|uk|united kingdom|ireland|austria|germany|netherlands|france|spain|poland|portugal|australia|japan|singapore|california|texas|new york|washington|colorado|illinois|massachusetts|virginia|pennsylvania|missouri|georgia|florida|ontario)\b/i
+const openToIndia = where => INDIA.test(where) || (REMOTE.test(where) && !FOREIGN_ONLY.test(where))
 
 // BFSI titles like "AVP"/"VP" often mean mid-level IC, not literal seniority —
 // unlike tech-company titles. Do NOT reject on title alone; only flag titles
@@ -33,9 +36,10 @@ import lever from '../adapters/lever.mjs'
 import workday from '../adapters/workday.mjs'
 import oracle_orc from '../adapters/oracle_orc.mjs'
 import webfetch from '../adapters/webfetch.mjs'
+import ashby from '../adapters/ashby.mjs'
 import linkedinGuest from '../adapters/linkedin_guest.mjs'
 
-const ADAPTERS = { greenhouse, lever, workday, oracle_orc, webfetch }
+const ADAPTERS = { greenhouse, lever, workday, oracle_orc, webfetch, ashby }
 
 async function fetchBoard (company) {
   const adapter = ADAPTERS[company.provider] ?? webfetch
@@ -113,7 +117,7 @@ for (const { company, jobs, error } of results) {
   for (const job of jobs ?? []) {
     const where = job.location || ''
     if (!ROLE.test(job.title)) continue
-    if (!INDIA.test(where) && !REMOTE.test(where)) continue
+    if (!openToIndia(where)) continue
     if (locFilter && !where.toLowerCase().includes(locFilter)) continue
 
     const ageHours = job.posted ? (now - new Date(job.posted).getTime()) / HOUR : null
@@ -153,7 +157,7 @@ if (!noLinkedin) {
       for (const job of jobs) {
         const where = job.location || ''
         if (!ROLE.test(job.title)) continue
-        if (!INDIA.test(where) && !REMOTE.test(where)) continue
+        if (!openToIndia(where)) continue
         if (locFilter && !where.toLowerCase().includes(locFilter)) continue
 
         const ageHours = job.posted ? (now - new Date(job.posted).getTime()) / HOUR : null
