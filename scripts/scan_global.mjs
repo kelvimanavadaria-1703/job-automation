@@ -8,14 +8,14 @@
 // UNSTATED = silent (verify with the employer). evidence holds the JD wording.
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
-import { dirname, join } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 import linkedin from '../adapters/linkedin_guest.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d }
 const MAX_DAYS = +arg('--maxAgeDays', 30)
 const MAX_YEARS = +arg('--maxYears', 5)
-const OUT = join(ROOT, arg('--out', 'data/global.raw.json'))
+const OUT = resolve(ROOT, arg('--out', 'data/global.raw.json'))
 const ROLE = /\b(dev\s?ops|devsecops|site reliability|sre|platform engineer(ing)?|cloud (platform |infrastructure |operations |support )?engineer|cloud infrastructure|infrastructure (software |platform )?engineer|systems? reliability|reliability engineer|production engineer|kubernetes|forward[\s-]deployed (infra|sre|site|platform|reliab))/i
 const DROP = /\b(director|head of|chief|vp|vice president|manager|principal|staff|distinguished|architect|lead|intern|internship|werkstudent|working student|apprentice|graduate|sales|account exec|marketing|recruit|counsel|data cent(er|re)|hardware|facilit|mechanical|electrical|manufactur|consultant|product owner|android|ios\b|frontend|brak|praktikum|customer reliability|integration reliability)/i
 const C = {
